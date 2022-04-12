@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleImpulsAbility : MonoBehaviour, IPersonComponent
+public class CircleImpulsAbility : MonoBehaviour, IAbility, IPersonComponent
 {
     [SerializeField] private float _radius = 6;
     [SerializeField] private AnimationCurve _impulsByDistance;
@@ -22,12 +22,6 @@ public class CircleImpulsAbility : MonoBehaviour, IPersonComponent
         _button.ClicEvent += Use;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-            Use();
-    }
-
     public void Use()
     {
         HashSet<IPerson> persons = new HashSet<IPerson>();
@@ -39,18 +33,15 @@ public class CircleImpulsAbility : MonoBehaviour, IPersonComponent
 
             if(person != null && person != Person)
             {
-                //persons.Add(person);
-                AttackPerson(person);
+                persons.Add(person);
             }
         }
+        foreach (var person in persons)
+        {
+            AttackPerson(person);
+        }
 
-        PlayEffects();
-
-        //foreach (var person in persons)
-        //{
-        //    AttackPerson(person);
-        //}
-        //persons.Clear();
+        PlayEffects();        
     }
 
     private void AttackPerson(IPerson person)

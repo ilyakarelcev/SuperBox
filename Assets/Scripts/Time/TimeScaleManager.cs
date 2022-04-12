@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TimeScaleManager : MonoBehaviour
 {
+    [SerializeField] private float _startTimeScale;
+
     private enum TypeMove
     {
         Linearly,
@@ -32,6 +34,8 @@ public class TimeScaleManager : MonoBehaviour
 
         _delta = 1;
         _targetTimeScale = Time.timeScale;
+
+        SetTimeScale(_startTimeScale);
     }
 
     private void Update() // Then change on Runtime operation

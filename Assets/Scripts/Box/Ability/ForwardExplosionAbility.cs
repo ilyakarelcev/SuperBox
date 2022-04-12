@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForwardExplosionAbility : MonoBehaviour, IPersonComponent
+public class ForwardExplosionAbility : MonoBehaviour, IAbility, IPersonComponent
 {
     [SerializeField] private float _pushAwayVelosityMultiply = 1.5f;
     [Space]

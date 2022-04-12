@@ -1,3 +1,4 @@
+using Cephei;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +11,6 @@ public enum MatchVariant
     Vertical
 }
 
-public enum InputType
-{
-    Mouse,
-    Touch
-}
 
 /// <summary>
 /// This joystick good work only with mouse. If you want use touch I recoomended you check all code on small error
@@ -78,21 +74,97 @@ public class Joystick : MonoBehaviour
     }
 
     [SerializeField] private int _fingerId = -1;
+    private ITouchUnit _curentTouch;
+    private bool down;
 
-    public void CustomUpdate()
+    private void Update()
     {
+        if (_curentTouch != null)
+            OnPressed(_curentTouch.CurentPosition);
 
-        if (_inputType == InputType.Touch)
-        {
-            GetTouchInput();
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0)) OnDown(Input.mousePosition);
-            if (Input.GetMouseButton(0)) OnPressed(Input.mousePosition);
-            if (Input.GetMouseButtonUp(0)) OnUp(Input.mousePosition);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    if (down)
+        //        Debug.LogError("Down pressed two");
+        //    down = true;
 
+        //    OnDown(Input.mousePosition);
+        //}
+        //if (Input.GetMouseButton(0))
+        //{
+        //    if (down == false)
+        //        Debug.LogError("Down equals false on Pressed");
+
+        //    OnPressed(Input.mousePosition);
+        //}
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    if (down == false) 
+        //        Debug.LogError("UP pressed two");
+        //    down = false;
+
+        //    OnUp(Input.mousePosition);
+        //}
+
+        //if (Input.GetMouseButtonDown(0)) OnDown(Input.mousePosition);
+        //if (Input.GetMouseButton(0)) OnPressed(Input.mousePosition);
+        //if (Input.GetMouseButtonUp(0)) OnUp(Input.mousePosition);
+    }
+
+    public bool GetTouch(ITouchUnit touchUnit)
+    {
+        if (UISuporter.IsPointUnsideRect(touchUnit.StartPosition, ActiveAreaRect) == false)
+            return false;
+
+        OnDown(touchUnit.StartPosition);
+        touchUnit.EndTouchEvent += (t) => OnUp(t.CurentPosition);
+
+        _curentTouch = touchUnit;
+        return true;
+    }
+
+    public void OnDown(Vector2 touchPosition)
+    {
+        if (IsPressed)
+            return;
+
+        IsPressed = true;
+        OnDownEvent?.Invoke(touchPosition);
+
+        _backgroundTransform.position = touchPosition;
+        SetSelection(true);
+    }
+
+    public void OnPressed(Vector2 touchPosition)
+    {
+        if (IsPressed == false)
+            return;
+
+        OnPressedEvent?.Invoke(touchPosition);
+
+        Vector2 toMouse = touchPosition - (Vector2)_backgroundTransform.position;
+
+        float distance = toMouse.magnitude;
+        float pixelSize = _size * Screen.width;
+        float radius = pixelSize * 0.5f;
+        float toMouseClamped = Mathf.Clamp(distance, 0, radius);
+
+        Vector2 stickPosition = toMouse.normalized * toMouseClamped;
+        Value = stickPosition / radius;
+        _stickTransform.localPosition = stickPosition;
+    }
+
+    public void OnUp(Vector2 touchPosition)
+    {
+        if (IsPressed == false)
+            return;
+
+        IsPressed = false;
+        OnUpEvent?.Invoke(touchPosition);
+
+        SetSelection(false);
+        Value = Vector2.zero;
+        _curentTouch = null;
     }
 
     bool IsPointInsideRect(RectTransform rect, Vector2 point)
@@ -114,7 +186,6 @@ public class Joystick : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-
             if (touch.phase == TouchPhase.Began)
             {
                 if (_fingerId == -1)
@@ -154,53 +225,6 @@ public class Joystick : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void OnDown(Vector2 touchPosition)
-    {
-        if (IsPressed)
-            return;
-
-        IsPressed = true;
-        OnDownEvent?.Invoke(touchPosition);
-
-        _backgroundTransform.position = touchPosition;
-        SetSelection(true);
-    }
-
-    /* 
-     * Со всем согласен, только странно каждый раз заново мерить радиус. Я бы его перещитывал его в OnValuate()
-     */
-
-    public void OnPressed(Vector2 touchPosition)
-    {
-        if (IsPressed == false)
-            return;
-
-        OnPressedEvent?.Invoke(touchPosition);
-
-        Vector2 toMouse = touchPosition - (Vector2)_backgroundTransform.position;
-
-        float distance = toMouse.magnitude;
-        float pixelSize = _size * Screen.width;
-        float radius = pixelSize * 0.5f;
-        float toMouseClamped = Mathf.Clamp(distance, 0, radius);
-
-        Vector2 stickPosition = toMouse.normalized * toMouseClamped;
-        Value = stickPosition / radius;
-        _stickTransform.localPosition = stickPosition;
-    }
-
-    public void OnUp(Vector2 touchPosition)
-    {
-        if (IsPressed == false)
-            return;
-
-        IsPressed = false;
-        OnUpEvent?.Invoke(touchPosition);
-
-        SetSelection(false);
-        Value = Vector2.zero;
     }
 
     private void SetSelection(bool selectStatus)

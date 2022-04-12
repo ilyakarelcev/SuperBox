@@ -7,70 +7,69 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private Joystick _joystick;
     [SerializeField] private AbilityButton _leftButton;
     [SerializeField] private AbilityButton _rightButton;
+    [Space]
+    [SerializeField] private InputConteiner _inputConteiner;
+    private bool _touchIsUsed;
 
-    private bool _isJoysticActive;
-
-    private AbilityButton[] _buttons;
+    [SerializeField] private AbilityButton[] _buttons;
 
     private void Start()
-    { 
-        _buttons = new AbilityButton[]{ _leftButton, _rightButton };
+    {
+        _inputConteiner.TouchEvent += OnTouch;
 
-        _joystick.OnDownEvent += OnJoystickDown;
+        //_buttons = new AbilityButton[] { _leftButton, _rightButton };
+
+        foreach (var button in _buttons)
+        {
+            button.EndTouch += OnButtonEndTouch;
+        }
         _joystick.OnUpEvent += OnJoystickUp;
     }
 
-    private void Update()
+    private void OnTouch(ITouchUnit touchUnit)
     {
-        if(_isJoysticActive == false && Input.GetMouseButtonDown(0))
-        {
-            if(HandleButton())
-                return;
-        }
+        if (_touchIsUsed) return;
 
-        _joystick.CustomUpdate();
-    }
-
-    private bool HandleButton()
-    {
-        foreach (var button in _buttons)
+        foreach(var button in _buttons)
         {
-            if(IsPointInsideRect(button.Rect, Input.mousePosition))
+            if (button.GetTouch(touchUnit))
             {
-                button.OnClick();
-                return true;
+                _touchIsUsed = true;
+                return;
             }
         }
-        return false;
+
+        if (_joystick.GetTouch(touchUnit))
+        {
+            HideButton();
+            _touchIsUsed = true;
+        }
     }
 
-    private bool IsPointInsideRect(RectTransform rect, Vector2 point)
+    private void OnButtonEndTouch()
     {
-        if (point.x < (rect.position.x + rect.rect.xMax)
-            && point.x > (rect.position.x + rect.rect.xMin)
-            && point.y < (rect.position.y + rect.rect.yMax)
-            && point.y > (rect.position.y + rect.rect.yMin))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    private void OnJoystickDown(Vector2 input)
-    {
-        foreach (var button in _buttons)
-        {
-            button.Hide();
-        }
-        _isJoysticActive = true;
-    }
+        _touchIsUsed = false;
+    }    
 
     private void OnJoystickUp(Vector2 input)
+    {
+        ShowButton();
+        _touchIsUsed = false;
+    }
+
+    private void ShowButton()
     {
         foreach (var button in _buttons)
         {
             button.Show();
         }
-        _isJoysticActive = false;
     }
+
+    private void HideButton()
+    {
+        foreach (var button in _buttons)
+        {
+            button.Hide();
+        }
+    }    
 }
