@@ -8,7 +8,7 @@ namespace Cephei
     {
         public static bool IsPointUnsideRect(Vector2 point, RectTransform rect)
         {
-            if (point.x < (rect.position.x + rect.rect.xMax)
+            if (point.x < (rect.position.x + rect.rect.x)
             && point.x > (rect.position.x + rect.rect.xMin)
             && point.y < (rect.position.y + rect.rect.yMax)
             && point.y > (rect.position.y + rect.rect.yMin))

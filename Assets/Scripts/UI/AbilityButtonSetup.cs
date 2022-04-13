@@ -18,4 +18,10 @@ public class AbilityButtonSetup : MonoBehaviour
         _left.Setup(_leftAbility.GetComponent<IAbility>(), _swipeControl, _swipeMagnitude);
         _right.Setup(_rightAbility.GetComponent<IAbility>(), _swipeControl, _swipeMagnitude);
     }
+
+    public void OnToggleChange(bool value)
+    {
+        _left.Setup(_leftAbility.GetComponent<IAbility>(), value, _swipeMagnitude);
+        _right.Setup(_rightAbility.GetComponent<IAbility>(), value, _swipeMagnitude);
+    }
 }

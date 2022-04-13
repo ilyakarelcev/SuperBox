@@ -247,7 +247,7 @@ public class Joystick : MonoBehaviour
 
     private void SetSize(float size)
     {
-        Vector2 sizeVector = Vector2.one * size * Screen.width;
+        Vector2 sizeVector = Vector2.one * size * _canvasRectTransform.sizeDelta.x;
 
         _backgroundTransform.sizeDelta = sizeVector;
         _stickTransform.sizeDelta = sizeVector * _stickSize;
