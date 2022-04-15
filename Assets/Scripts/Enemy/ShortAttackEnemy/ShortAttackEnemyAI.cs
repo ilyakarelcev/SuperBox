@@ -14,6 +14,7 @@ public class ShortAttackEnemyAI : IPersonComponent
     [SerializeField] private StanPattern _stanPattern;
     [SerializeField] private GoToOpponentPattern _goToOpponent;
     [SerializeField] private WaitAfterAttackPattern _waitPattern;
+    [SerializeField] private PlayEffectPattern _startAttackPattern;
     [Space]
     [SerializeField] private ToStanTransition _toStanTransition;
 
@@ -93,7 +94,7 @@ public class ShortAttackEnemyAI : IPersonComponent
         void Unsubscribe()
         {
             pattern.EndWorkEvent -= Unsubscribe;
-            HandleVision(_enemyVision.IsPlayerInside);
+            HandleVision(_enemyVision.PlayerIsVision);
         }
     }
 
@@ -114,6 +115,8 @@ public class ShortAttackEnemyAI : IPersonComponent
         AttackBehaviour = new StateMachineLevle();
         PersonMover mover = Person.Mover as PersonMover;
 
+        _startAttackPattern.Transition.Add(new SimpleTransition(_goToOpponent, _startAttackPattern, AttackBehaviour));
+
         _shortAttackPattern.Transition.Add(new SimpleTransition(_waitPattern, _shortAttackPattern, AttackBehaviour));
         _shortAttackPattern.Mover = mover;
 
@@ -133,7 +136,7 @@ public class ShortAttackEnemyAI : IPersonComponent
         _waitPattern.Transition.Add(_toStanTransition);
 
 
-        AttackBehaviour.Init(_goToOpponent, _shortAttackPattern, _waitPattern, _stanPattern, _goToOpponent);
+        AttackBehaviour.Init(_startAttackPattern,  _shortAttackPattern, _waitPattern, _stanPattern, _goToOpponent, _startAttackPattern);
         _toStanTransition.Init(_stanPattern, AttackBehaviour, Person.HealthManager, Person.AttackTakerManager);
     }
 }

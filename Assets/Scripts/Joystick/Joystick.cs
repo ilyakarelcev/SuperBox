@@ -1,9 +1,6 @@
-using Cephei;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public enum MatchVariant
 {
@@ -11,27 +8,16 @@ public enum MatchVariant
     Vertical
 }
 
-
-/// <summary>
-/// This joystick good work only with mouse. If you want use touch I recoomended you check all code on small error
-/// </summary>
-
-public class Joystick : MonoBehaviour
+public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-
     [SerializeField] private RectTransform _backgroundTransform;
     [SerializeField] private RectTransform _stickTransform;
-    [SerializeField] private RectTransform _defaultPosition;
     [Space]
     [SerializeField, Range(0, 1)] private float _size;
     [SerializeField, Range(0, 1)] private float _stickSize;
     [Space]
-    [SerializeField, Range(0.1f, 1.5f)] private float _multiplySizeOnUnselected = 0.7f;
-    [Space]
     [SerializeField] private RectTransform _canvasRectTransform;
     [SerializeField] private MatchVariant _matchVariant;
-    [SerializeField] private RectTransform ActiveAreaRect;
-    [SerializeField] private InputType _inputType;
     [Space]
     [SerializeField] private ChargeIndicationOnJoystic _chargeIndication;
 
@@ -41,98 +27,48 @@ public class Joystick : MonoBehaviour
     public event Action<Vector2> OnDownEvent;
     public event Action<Vector2> OnPressedEvent;
     public event Action<Vector2> OnUpEvent;
+    [Space]
+    [SerializeField] private float _currentSize;
 
     [Space]
     public bool WriteInLog;
 
     private void OnValidate()
     {
-
-        Vector2 backgroundSize;
-        if (_matchVariant == MatchVariant.Horizontal)
-        {
-            backgroundSize = Vector2.one * _size * _canvasRectTransform.sizeDelta.x;
-        }
-        else
-        {
-            backgroundSize = Vector2.one * _size * _canvasRectTransform.sizeDelta.y;
-        }
-
-        SetSize(_size);
+        UpdateSize();
     }
 
     void Start()
     {
-#if UNITY_ANDRIOD
-        _inputType = InputType.Touch;
-#endif
-#if UNITY_IOS
-        _inputType = InputType.Touch;
-#endif
-
+        UpdateSize();
         SetSelection(false);
     }
 
-    [SerializeField] private int _fingerId = -1;
-    private ITouchUnit _curentTouch;
-    private bool down;
-
     private void Update()
     {
-        if (_curentTouch != null)
-            OnPressed(_curentTouch.CurentPosition);
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (down)
-        //        Debug.LogError("Down pressed two");
-        //    down = true;
-
-        //    OnDown(Input.mousePosition);
-        //}
-        //if (Input.GetMouseButton(0))
-        //{
-        //    if (down == false)
-        //        Debug.LogError("Down equals false on Pressed");
-
-        //    OnPressed(Input.mousePosition);
-        //}
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    if (down == false) 
-        //        Debug.LogError("UP pressed two");
-        //    down = false;
-
-        //    OnUp(Input.mousePosition);
-        //}
-
-        //if (Input.GetMouseButtonDown(0)) OnDown(Input.mousePosition);
-        //if (Input.GetMouseButton(0)) OnPressed(Input.mousePosition);
-        //if (Input.GetMouseButtonUp(0)) OnUp(Input.mousePosition);
+        if (_currentPosition != Vector2.zero)
+            OnPressed(_currentPosition);
     }
 
-    public bool GetTouch(ITouchUnit touchUnit)
-    {
-        if (UISuporter.IsPointUnsideRect(touchUnit.StartPosition, ActiveAreaRect) == false)
-            return false;
+    private Vector2 _currentPosition;
 
-        OnDown(touchUnit.StartPosition);
-        touchUnit.EndTouchEvent += (t) => OnUp(t.CurentPosition);
-
-        _curentTouch = touchUnit;
-        return true;
-    }
-
-    public void OnDown(Vector2 touchPosition)
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (IsPressed)
             return;
 
         IsPressed = true;
-        OnDownEvent?.Invoke(touchPosition);
+        _currentPosition = eventData.position;
 
-        _backgroundTransform.position = touchPosition;
+        OnDownEvent?.Invoke(eventData.position);
+
+        _backgroundTransform.position = eventData.position;
         SetSelection(true);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        _currentPosition = eventData.position;
     }
 
     public void OnPressed(Vector2 touchPosition)
@@ -154,100 +90,35 @@ public class Joystick : MonoBehaviour
         _stickTransform.localPosition = stickPosition;
     }
 
-    public void OnUp(Vector2 touchPosition)
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (IsPressed == false)
             return;
 
         IsPressed = false;
-        OnUpEvent?.Invoke(touchPosition);
+        OnUpEvent?.Invoke(eventData.position);
 
         SetSelection(false);
         Value = Vector2.zero;
-        _curentTouch = null;
-    }
-
-    bool IsPointInsideRect(RectTransform rect, Vector2 point)
-    {
-        if (point.x < (rect.position.x + rect.rect.xMax)
-            && point.x > (rect.position.x + rect.rect.xMin)
-            && point.y < (rect.position.y + rect.rect.yMax)
-            && point.y > (rect.position.y + rect.rect.yMin))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void GetTouchInput()
-    {
-        foreach (Touch touch in Input.touches)
-        {
-            if (touch.phase == TouchPhase.Began)
-            {
-                if (_fingerId == -1)
-                {
-                    float relativeXPosition = touch.position.x / Screen.width;
-
-                    if (WriteInLog)
-                    {
-                        Debug.Log(relativeXPosition);
-                        Debug.Log(Time.time);
-                    }
-
-                    if (IsPointInsideRect(ActiveAreaRect, touch.position))
-                    {
-                        if (WriteInLog) Debug.Log("inside");
-
-                        _fingerId = touch.fingerId;
-                        OnDown(touch.position);
-                        break;
-                    }
-                }
-
-            }
-            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
-            {
-                if (touch.fingerId == _fingerId)
-                {
-                    OnPressed(touch.position);
-                }
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                if (touch.fingerId == _fingerId)
-                {
-                    _fingerId = -1;
-                    OnUp(touch.position);
-                }
-            }
-        }
-    }
+        _currentPosition = Vector2.zero;
+    }    
 
     private void SetSelection(bool selectStatus)
     {
         if (selectStatus)
-        {
             Show();
-            return;
-
-            SetSize(_size);
-        }
-
-        Hide();
-
-        return;
-        SetSize(_size * _multiplySizeOnUnselected);
-        _backgroundTransform.position = _defaultPosition.position;
-        _stickTransform.localPosition = Vector2.zero;
+        else
+            Hide();
     }
 
-    private void SetSize(float size)
+    private void UpdateSize()
     {
-        Vector2 sizeVector = Vector2.one * size * _canvasRectTransform.sizeDelta.x;
+        if (_matchVariant == MatchVariant.Horizontal)
+            _currentSize = _size * _canvasRectTransform.sizeDelta.x;
+        else
+            _currentSize = _size * _canvasRectTransform.sizeDelta.y;
+
+        Vector2 sizeVector = Vector2.one * _currentSize;
 
         _backgroundTransform.sizeDelta = sizeVector;
         _stickTransform.sizeDelta = sizeVector * _stickSize;
@@ -266,10 +137,4 @@ public class Joystick : MonoBehaviour
         _backgroundTransform.gameObject.SetActive(false);
         _stickTransform.gameObject.SetActive(false);
     }
-
-}
-
-public class JoystickSetup
-{
-
 }

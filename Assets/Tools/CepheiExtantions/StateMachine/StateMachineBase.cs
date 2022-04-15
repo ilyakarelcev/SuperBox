@@ -17,8 +17,8 @@ namespace Cephei.StateMachine
 
         public void StartWork(IStateMachinePattern startPattern)
         {
-            startPattern.Activate();
             CurentPattern = startPattern;
+            startPattern.Activate();
         }
 
         public void StopWork()

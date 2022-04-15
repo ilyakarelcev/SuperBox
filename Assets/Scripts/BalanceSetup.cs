@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-class BalanceSetup: MonoBehaviour
+[System.Serializable]
+public class BalanceSetup: MonoBehaviour, ISengleTone
 {
     [SerializeField] private bool _enemyHitToEnemy;
     [SerializeField] private bool _personHitPerson = true;    
@@ -10,7 +9,7 @@ class BalanceSetup: MonoBehaviour
     public static bool EnemyHitToEnemy { get; private set; }
     public static bool PersonHitPerson { get; private set; }
 
-    private void Start()
+    public void Init()
     {
         EnemyHitToEnemy = _enemyHitToEnemy;
         PersonHitPerson = _personHitPerson;        

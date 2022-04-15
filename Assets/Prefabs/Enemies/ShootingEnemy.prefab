@@ -378,6 +378,9 @@ MonoBehaviour:
   _sidePercent: 0.2
   _positionOffset: 1
   _zeroY: 0
+  _debug:
+    Impuls: {x: 0, y: 0, z: 0}
+    ImpulsMagnitude: 0
 --- !u!1 &8793593663374818661
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,8 +528,16 @@ MonoBehaviour:
       Opponent: {fileID: 0}
     _waitPattern:
       _waitTime: 0.4
+    _archerStartPattern:
+      _minMaxDelay: {x: 0.3, y: 1.5}
+      _playEffectPattern:
+        _source: {fileID: 8407303505714934213}
+      Opponent: {fileID: 0}
+      RandomTimeView: 0
+      ResaultTimeView: 0
     _toStanTransition:
       DamageToStan: 3
+      ImpulsToStan: 12
     KeyboardTesting: 1
   _collisionParticlsEfect:
     _effects:

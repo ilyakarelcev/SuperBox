@@ -11,6 +11,7 @@ public class Player : PersonBase
     [SerializeField] private CollisionEfect _collisionParticlsEfect;
     [SerializeField] private CameraShakeOnHandleAttack _shakeOnHandleAttack;
     [SerializeField] private CameraShakeOnTakeAttack _shakeOnTakeAttack;
+    [SerializeField] private HealthChangedScreen _healthScreen;
     [Header("Sound")]
     [SerializeField] private SoundAttackTaker _soundAttackTaker;
     [SerializeField] private SoundAttackHandler _soundAttackHandler;
@@ -35,7 +36,8 @@ public class Player : PersonBase
             _shakeOnHandleAttack,
             _soundAttackHandler,
             _soundAttackTaker,
-            _collisionParticlsEfect);
+            _collisionParticlsEfect,
+            _healthScreen);
 
         InitializeAllComponent();
     }

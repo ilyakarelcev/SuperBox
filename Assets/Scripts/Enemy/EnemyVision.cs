@@ -6,15 +6,19 @@ public class EnemyVision : MonoBehaviour, IPersonComponent
 {
     [SerializeField] private MeshRenderer _circle;
 
-    public bool IsPlayerInside { get; private set; }
+    public bool PlayerIsVision { get; private set; }
+    public bool PlayerIsInside { get; private set; }
 
     public IPerson Person { get; private set; }
 
     public event Action<bool> ChangeIsPlayerVisionEvent;
 
+    private Transform _player;
+    private CastomCoroutine _rayCastInPlayer;
+
     public void Init(IPerson person)
     {
-        Person = person;
+        Person = person;        
     }
 
     public void SetRadius(float radius)
@@ -30,27 +34,46 @@ public class EnemyVision : MonoBehaviour, IPersonComponent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (IsPlayerInside) return;
+        if (PlayerIsVision || PlayerIsInside) return;
 
-        CheckPlayerVision(true, other);
+        IPerson person = IPerson.GetPersonFromRigidbody(other.attachedRigidbody);
+        if (person is Player)
+        {
+            _rayCastInPlayer = Person.Operator.OpenUpdateCoroutine(RayCastInPlayer, LifeType.Cycle);
+
+            _player = person.Transform;
+            PlayerIsInside = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (IsPlayerInside == false) return;
+        if (PlayerIsInside == false) return;
 
-        CheckPlayerVision(false, other);
-    }
-
-    private void CheckPlayerVision(bool visionStaus, Collider other)
-    {
         if (IPerson.GetPersonFromRigidbody(other.attachedRigidbody) is Player)
         {
-            IsPlayerInside = visionStaus;
-            ChangeIsPlayerVisionEvent?.Invoke(visionStaus);
+            if (PlayerIsVision)
+            {
+                PlayerIsVision = false;
+                ChangeIsPlayerVisionEvent?.Invoke(false);
+                return;
+            }
 
-            if (visionStaus)
-                _circle.enabled = false;
+            PlayerIsInside = false;
+            _rayCastInPlayer.Destroy();
         }
     }
+
+    private void RayCastInPlayer()
+    {
+        Physics.Raycast(Person.Position, Person.Position.To(_player.position), out RaycastHit hit, float.PositiveInfinity, -1, QueryTriggerInteraction.Ignore);
+
+        if (IPerson.GetPersonFromRigidbody(hit.collider.attachedRigidbody) is Player)
+        {
+            PlayerIsVision = true;
+            ChangeIsPlayerVisionEvent?.Invoke(true);
+
+            _rayCastInPlayer.Destroy();
+        }
+    }    
 }

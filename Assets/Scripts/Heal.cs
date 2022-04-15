@@ -76,6 +76,9 @@ public class Heal : MonoBehaviour
 
     private void DecracesAnimation()
     {
+        transform.localScale = Vector3.zero;
+
+        return;
         float timer = 0;
         Vector3 startScale = transform.localScale;
 

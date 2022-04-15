@@ -562,6 +562,106 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.type
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.placementMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ClampVelocityModule.dampen
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.boxThickness.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.boxThickness.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.boxThickness.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.m_MeshRenderer
+      value: 
+      objectReference: {fileID: 8016863919139417360}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ClampVelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.m_UseMeshColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ClampVelocityModule.x.scalar
+      value: 0.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ClampVelocityModule.y.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ClampVelocityModule.z.scalar
+      value: 0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.m_MeshNormalOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ClampVelocityModule.inWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.randomPositionAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.randomDirectionAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: ShapeModule.sphericalDirectionAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: InitialModule.gravityModifier.minScalar
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097031165077486737, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fe3f103531d8434988736672a7b1a38, type: 3}
 --- !u!4 &2658513801727228591 stripped

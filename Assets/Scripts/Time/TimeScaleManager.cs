@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeScaleManager : MonoBehaviour
+public class TimeScaleManager : MonoBehaviour, ISengleTone
 {
     [SerializeField] private float _startTimeScale;
 
@@ -25,7 +25,7 @@ public class TimeScaleManager : MonoBehaviour
 
     private static TypeMove _typeMove;
 
-    private void Start()
+    public void Init()
     {
         if (Instance) Debug.Log("More one instance");
         Instance = true;

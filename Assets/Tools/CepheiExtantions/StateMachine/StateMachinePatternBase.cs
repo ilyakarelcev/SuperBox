@@ -32,7 +32,7 @@ namespace Cephei.StateMachine
             }
         }
 
-        protected void InvokeEndWorkEvent() => EndWorkEvent.Invoke();
+        protected void InvokeEndWorkEvent() => EndWorkEvent?.Invoke();
 
 
         public void LogAllEndWorkEventSubscribers()

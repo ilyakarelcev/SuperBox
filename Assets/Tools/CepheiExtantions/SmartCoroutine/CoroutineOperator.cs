@@ -47,9 +47,15 @@ public class CoroutineOperator
 
     private CastomCoroutine InitCoroutine<T>(SmartCoroutine coroutine, LinkedList<T> list) where T : SmartCoroutine
     {
-        coroutine.OnDestroy += (x) => list.Remove(x as T);
-        list.AddLast(coroutine as T);
+        coroutine.DestroyEvent += OnDestroy;
 
+        void OnDestroy(SmartCoroutine coroutine)
+        {
+            list.Remove(coroutine as T);
+            coroutine.DestroyEvent -= OnDestroy;
+        }
+
+        list.AddLast(coroutine as T);
         return coroutine;
     }
 
@@ -66,14 +72,14 @@ public class CoroutineOperator
 
     private abstract class SmartCoroutine : CastomCoroutine
     {
-        public Action<SmartCoroutine> OnDestroy;
+        public Action<SmartCoroutine> DestroyEvent;
 
         public SmartCoroutine(Action action, LifeType lifeType)
             : base(action, lifeType) { }
 
         public override void Destroy()
         {
-            OnDestroy.Invoke(this);
+            DestroyEvent?.Invoke(this);
         }
     }
 

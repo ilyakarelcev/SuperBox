@@ -15,6 +15,7 @@ public class ArcherAI : IPersonComponent
     [SerializeField] private StanPattern _stanPattern;
     [SerializeField] private RotateToOpponent _rotateToOpponent;
     [SerializeField] private StopAndWaitPattern _waitPattern;
+    [SerializeField] private ArcherStartAttackPatternWithDelay _archerStartPattern;
     [Space]
     [SerializeField] private ToStanTransition _toStanTransition;
 
@@ -39,7 +40,7 @@ public class ArcherAI : IPersonComponent
         Behaviour = _behaviourSelector.GetBehaviour();
 
         Person.InitializeThisComponents(
-            _archerAttackPattern, _stanPattern, _rotateToOpponent, _waitPattern, Behaviour as IPersonComponent);
+            _archerStartPattern, _archerAttackPattern, _stanPattern, _rotateToOpponent, _waitPattern, Behaviour as IPersonComponent);
 
         Behaviour.Activate();
         _enemyVision.SetRadius(_visionRadiusInIdle * 2);
@@ -101,7 +102,7 @@ public class ArcherAI : IPersonComponent
         void Unsubscribe()
         {
             pattern.EndWorkEvent -= Unsubscribe;
-            HandleVision(_enemyVision.IsPlayerInside);
+            HandleVision(_enemyVision.PlayerIsVision);
         }
     }
 
@@ -122,6 +123,9 @@ public class ArcherAI : IPersonComponent
         AttackBehaviour = new StateMachineLevle();
         Rotator mover = Person.Mover as Rotator;
 
+        _archerStartPattern.Transition.Add(new SimpleTransition(_rotateToOpponent, _archerStartPattern, AttackBehaviour));
+        _archerStartPattern.Mover = mover;
+
         _archerAttackPattern.Transition.Add(new SimpleTransition(_waitPattern, _archerAttackPattern, AttackBehaviour));
         _archerAttackPattern.Mover = mover;
 
@@ -140,7 +144,7 @@ public class ArcherAI : IPersonComponent
         _waitPattern.Transition.Add(_toStanTransition);
 
 
-        AttackBehaviour.Init(_rotateToOpponent, _archerAttackPattern, _waitPattern, _stanPattern, _rotateToOpponent);
+        AttackBehaviour.Init(_archerStartPattern, _archerAttackPattern, _waitPattern, _stanPattern, _rotateToOpponent, _archerStartPattern);
         _toStanTransition.Init(_stanPattern, AttackBehaviour, Person.HealthManager, Person.AttackTakerManager);
     }
 }

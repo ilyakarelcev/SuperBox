@@ -25,7 +25,6 @@ public class ForwardExplosionAbility : MonoBehaviour, IAbility, IPersonComponent
         _jumpInfo = person.GetPersonComponentIs<IJumpInfoConteiner>();
 
         _attacker.AttackEvent += OnAttack;
-        _button.ClicEvent += Use;
     }
 
     public void Use()

@@ -18,8 +18,6 @@ public class CircleImpulsAbility : MonoBehaviour, IAbility, IPersonComponent
     public void Init(IPerson person)
     {
         Person = person;
-
-        _button.ClicEvent += Use;
     }
 
     public void Use()
