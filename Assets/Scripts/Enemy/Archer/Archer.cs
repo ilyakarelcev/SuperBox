@@ -25,15 +25,11 @@ public class Archer : PersonBase
         attackTaker.AttackTakers.Add(_collisionParticlsEfect);
         attackTaker.AttackTakers.Add(_soundAttackTaker);
 
-        Init(_healthManager, _rb, _mover, attackTaker, transform,
-            _attackAnimationController,
-            _mover,
-            _circleEffect,
-            _collisionParticlsEfect,
-            _soundAttackViewSuport,
-            _soundAttackTaker,
-            AI);
+        Init(_healthManager, _rb, _mover, attackTaker, transform);
 
+        AddComponents(_attackAnimationController, _mover, AI);
         InitializeAllComponent();
+
+        InitializeThisComponents(_circleEffect, _collisionParticlsEfect, _soundAttackViewSuport, _soundAttackTaker);
     }
 }

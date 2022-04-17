@@ -10,7 +10,6 @@ public class BoxController : MonoBehaviour, IPersonComponent
     [SerializeField] private float _maxJumpPrice = 0.6f;
     [Space]
     [SerializeField] private Joystick _joystick;
-    [SerializeField] private BoxMove _boxMove;
     [SerializeField] private JumpIndication _jumpIndication;
     [SerializeField] private ChargeIndicationOnJoystic _chargeIndication;
     [SerializeField] private CameraMove _cameraMove;
@@ -111,8 +110,6 @@ public class BoxController : MonoBehaviour, IPersonComponent
         public float DirectionMagnitude;
         public float ChargeOnJump;
         public float EvaluateMultiply;
-
-        [HideInInspector] public BoxController Controler;
 
         public void UpdateInfo(float charge)
         {

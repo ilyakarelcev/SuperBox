@@ -23,7 +23,7 @@ public class DontBreakerAttackHandler : IDontBreakerAttackHandler, IPersonCompon
     {
         Person = person;
 
-        _attackTaker = person.GetPersonComponentIs<IAttackTakerManager>();
+        _attackTaker = person.AttackTakerManager;
     }
 
     public void Init(IAttackTaker[] defaultEffect, IAttackTaker[] dontBreakStateEfect)

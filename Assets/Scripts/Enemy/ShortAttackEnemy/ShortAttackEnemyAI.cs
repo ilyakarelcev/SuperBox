@@ -24,6 +24,7 @@ public class ShortAttackEnemyAI : IPersonComponent
     public StateMachineLevle Behaviour { get; private set; }
 
     private EnemyVision _enemyVision;
+    private LineToPlayerOnInvisible _lineToPlayer;
 
     public void Init(IPerson person)
     {
@@ -31,6 +32,8 @@ public class ShortAttackEnemyAI : IPersonComponent
 
         _enemyVision = Person.GetPersonComponent<EnemyVision>();
         _enemyVision.ChangeIsPlayerVisionEvent += HandleVision;
+
+        _lineToPlayer = person.GetPersonComponent<LineToPlayerOnInvisible>();
 
         CreateAttackPattern();
         Behaviour = _behaviourSelector.GetBehaviour();
@@ -60,6 +63,7 @@ public class ShortAttackEnemyAI : IPersonComponent
         AttackBehaviour.Activate();
 
         _enemyVision.SetRadius(_visionRadiusInAttack * 2);
+        _lineToPlayer.Activate();
     }
 
     public void ToBehaviour()
@@ -84,6 +88,7 @@ public class ShortAttackEnemyAI : IPersonComponent
         Behaviour.Activate();
 
         _enemyVision.SetRadius(_visionRadiusInIdle * 2);
+        _lineToPlayer.Deactive();
     }
 
     private void DelayToBehaviourTransition()

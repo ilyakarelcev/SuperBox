@@ -7,9 +7,6 @@ using Cephei;
 public class BoxAttacker : MonoBehaviour, IPersonComponent
 {
     [SerializeField] private float _timeToForgetPerson = 0.2f;
-    [Space]
-    [SerializeField] private BoxMove _move;
-    [SerializeField] private BoxController _boxController;//
 
     public IPerson Person { get; private set; }
 

@@ -1,15 +1,18 @@
-﻿using System.Collections;
+﻿using Cephei;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LineToPlayerOnInvisible : MonoBehaviour, IPersonComponent
 {
+    [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private LineRenderer _line;
 
     public IPerson Person { get; private set; }
 
     private Transform _player;
-    private bool _lineIsShowed;
+    public bool _lineIsShowed;
+    private bool _isActive;
 
     public void Init(IPerson person)
     {
@@ -17,34 +20,68 @@ public class LineToPlayerOnInvisible : MonoBehaviour, IPersonComponent
         _player = PlayerStaticInfo.Player.Transform;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (_lineIsShowed == false) return;
+        if (_player == null)
+            _player = PlayerStaticInfo.Player.Transform;
 
         _line.SetPositions(new Vector3[] {
-            Person.Position + Vector3.up * 0.05f,
-            _player.position + Vector3.up * 0.05f
-        });
+            Person.Position.ZeroY() + Vector3.up * 0.05f,
+            _player.position.ZeroY() + Vector3.up * 0.05f
+        });        
     }
 
     private void OnBecameVisible()
     {
-        SetEnabledLine(true);
+        if (_isActive == false) return;
+
+        SetEnabledLine(false);
+        PlayAnimation();
     }
 
     private void OnBecameInvisible()
     {
-        SetEnabledLine(false);
+        if (_isActive == false) return;
+
+        SetEnabledLine(true);
+        PlayAnimation();
     }
 
-    public void SetEnabled(bool enabled)
+    [ContextMenu("Active")]
+    public void Activate()
     {
-        this.enabled = enabled;
+        _isActive = true;
+        gameObject.SetActive(true);
+
+        if (_renderer.isVisible == false)
+        {
+            SetEnabledLine(true);
+            PlayAnimation();
+        }
+
+        Debug.LogError("Visible: " + _renderer.isVisible);
+    }
+
+    [ContextMenu("Deactive")]
+    public void Deactive()
+    {
+        _isActive = false;
+        gameObject.SetActive(false);
+
+        SetEnabledLine(false);
     }
 
     public void SetEnabledLine(bool enabled)
     {
         _lineIsShowed = enabled;
-        _line.enabled = enabled;
+
+        if(enabled == false)
+            _line.SetPositions(new Vector3[] { Vector3.zero, Vector3.zero });
+    }
+
+    public void PlayAnimation()
+    {
+
     }
 }

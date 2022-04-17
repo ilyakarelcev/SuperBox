@@ -17,9 +17,11 @@ public class PersonBase : MonoBehaviour, IPerson
     public CoroutineOperator Operator { get; protected set; }
 
     private List<object> AllComponents = new List<object>();
-    [SerializeField] private Component[] _components;
 
-    public void Init(HealthManager healthManager, Rigidbody rigidbody, IMover mover, IAttackTakerManager attackTakerManager, Transform transform, params object[] components)
+    [SerializeField] private Component[] _components;
+    [SerializeField] private Component[] _componentsToInit;
+
+    public void Init(HealthManager healthManager, Rigidbody rigidbody, IMover mover, IAttackTakerManager attackTakerManager, Transform transform)
     {
         HealthManager = healthManager;
         Rigidbody = rigidbody;
@@ -29,9 +31,7 @@ public class PersonBase : MonoBehaviour, IPerson
 
         Operator = new CoroutineOperator();
 
-        AllComponents.AddRange(components);
         AllComponents.AddRange(_components);
-        AllComponents.AddRange(new object[] { HealthManager, Rigidbody, Mover, AttackTakerManager, Transform, Operator });
     }
 
     protected void InitializeAllComponent()
@@ -41,6 +41,8 @@ public class PersonBase : MonoBehaviour, IPerson
             if (component is IPersonComponent)
                 (component as IPersonComponent).Init(this);
         }
+
+        InitializeThisComponents(_componentsToInit.Select(x => (IPersonComponent)x).ToArray());
     }
 
     public void InitializeThisComponents(params IPersonComponent[] components)
@@ -54,6 +56,11 @@ public class PersonBase : MonoBehaviour, IPerson
     public void AddComponent(object component)
     {
         AllComponents.Add(component);
+    }
+
+    public void AddComponents(params object[] components)
+    {
+        AllComponents.AddRange(components);
     }
 
     public T GetPersonComponent<T>()

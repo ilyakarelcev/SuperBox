@@ -17,6 +17,8 @@ public interface IPerson
 
     void AddComponent(object component);
 
+    void AddComponents(params object[] component);
+
     void InitializeThisComponents(params IPersonComponent[] components);
 
     T GetPersonComponent<T>();

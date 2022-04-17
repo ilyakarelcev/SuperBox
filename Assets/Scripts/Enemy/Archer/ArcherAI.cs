@@ -25,6 +25,7 @@ public class ArcherAI : IPersonComponent
     public StateMachineLevle Behaviour { get; private set; }
 
     private EnemyVision _enemyVision;
+    private LineToPlayerOnInvisible _lineToPlayer;
 
     [Space]
     public bool KeyboardTesting;
@@ -35,6 +36,8 @@ public class ArcherAI : IPersonComponent
 
         _enemyVision = person.GetPersonComponent<EnemyVision>();
         _enemyVision.ChangeIsPlayerVisionEvent += HandleVision;
+
+        _lineToPlayer = person.GetPersonComponent<LineToPlayerOnInvisible>();
 
         CreateAttackPattern();
         Behaviour = _behaviourSelector.GetBehaviour();
@@ -68,6 +71,7 @@ public class ArcherAI : IPersonComponent
         AttackBehaviour.Activate();
 
         _enemyVision.SetRadius(_visionRadiusInAttack * 2);
+        _lineToPlayer.Activate();
     }
 
     public void ToBehaviour()
@@ -92,6 +96,7 @@ public class ArcherAI : IPersonComponent
         Behaviour.Activate();
 
         _enemyVision.SetRadius(_visionRadiusInIdle * 2);
+        _lineToPlayer.Deactive();
     }
 
     private void DelayToBehaviourTransition()

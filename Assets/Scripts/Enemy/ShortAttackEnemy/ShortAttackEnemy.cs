@@ -30,22 +30,15 @@ public class ShortAttackEnemy : PersonBase
         attackTaker.AttackTakers.Add(_soundAttackTaker);
 
         _dontBreakerAttackHandler.Init(
-            new IAttackTaker[] { _collisionParticlsEfect, _soundAttackTaker }, 
+            new IAttackTaker[] { _collisionParticlsEfect, _soundAttackTaker },
             new IAttackTaker[] { _collisionParticlsEfectDontBreakAttack, _soundOnDontBreakAttack }
             );
 
-        Init(_healthManager, _rb, _mover, attackTaker, transform, 
-            _mover, 
-            _attackView,
-            _circleEffectForAttack,
-            _collisionParticlsEfect,
-            _collisionParticlsEfectDontBreakAttack,
-            _dontBreakerAttackHandler,
-            _soundAttackViewSuport,
-            _soundAttackTaker,
-            _soundOnDontBreakAttack,
-            AI);
+        Init(_healthManager, _rb, _mover, attackTaker, transform);
+
+        AddComponents(_mover, _attackView, _dontBreakerAttackHandler, AI);
 
         InitializeAllComponent();
+        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _collisionParticlsEfectDontBreakAttack, _circleEffectForAttack, _soundAttackTaker, _soundOnDontBreakAttack);
     }
 }

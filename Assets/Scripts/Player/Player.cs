@@ -30,15 +30,11 @@ public class Player : PersonBase
         attackTakerManager.AttackTakers.Add(_shakeOnTakeAttack);
         attackTakerManager.AttackTakers.Add(_soundAttackTaker);
 
-        Init(_healthManager, _rigidbody, new NullMover(), attackTakerManager, transform, 
-            _boxPushAway,
-            JumpInfoConteiner,
-            _shakeOnHandleAttack,
-            _soundAttackHandler,
-            _soundAttackTaker,
-            _collisionParticlsEfect,
-            _healthScreen);
+        Init(_healthManager, _rigidbody, new NullMover(), attackTakerManager, transform);
+
+        AddComponents(_boxPushAway, JumpInfoConteiner, _shakeOnHandleAttack, _soundAttackHandler);
 
         InitializeAllComponent();
+        InitializeThisComponents(_collisionParticlsEfect, _healthScreen, _soundAttackTaker);
     }
 }

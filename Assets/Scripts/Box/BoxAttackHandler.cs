@@ -8,8 +8,6 @@ public class BoxAttackHandler : MonoBehaviour, IAttackHandler, IPersonComponent
     [SerializeField] private float AddedImpuls = 5;
     [Space]
     [SerializeField] private AnimationCurve _damageOnJumpDuration;
-    [Space]
-    [SerializeField] private BoxController _boxController;
 
     [Space]
     [SerializeField] private BoxAttackerDebug _debug;
