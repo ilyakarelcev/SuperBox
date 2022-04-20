@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleImpulsAbility : MonoBehaviour, IAbility, IPersonComponent
+public class CircleImpulsAbility : AbilityBase, IPersonComponent
 {
     [SerializeField] private float _radius = 6;
     [SerializeField] private AnimationCurve _impulsByDistance;
@@ -18,10 +18,14 @@ public class CircleImpulsAbility : MonoBehaviour, IAbility, IPersonComponent
     public void Init(IPerson person)
     {
         Person = person;
+
+        Init();
     }
 
-    public void Use()
+    public override void Use()
     {
+        base.Use();
+
         HashSet<IPerson> persons = new HashSet<IPerson>();
         foreach (var collider in Physics.OverlapSphere(Person.Position, _radius))
         {
@@ -50,18 +54,13 @@ public class CircleImpulsAbility : MonoBehaviour, IAbility, IPersonComponent
 
         Attack attack = new Attack(Person, person, attackDirection.normalized, multiply, person.Position);
 
-        _impulsDealer.Handle(attack);
-        //attack.Damage = 6;        
+        _impulsDealer.Handle(attack);       
 
         person.AttackTakerManager.TakeAttack(attack);
-
-
-        Debug.Log("Distance to enemy: " + attackDirection.magnitude);
     }
 
     private void PlayEffects()
     {
-        //_effect.transform.rotation = Vector3.up.GetRotation();
         _effect.Play();
     }
 

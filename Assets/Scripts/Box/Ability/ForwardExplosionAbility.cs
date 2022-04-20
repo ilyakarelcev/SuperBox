@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForwardExplosionAbility : MonoBehaviour, IAbility, IPersonComponent
+public class ForwardExplosionAbility : AbilityBase, IPersonComponent
 {
     [SerializeField] private float _pushAwayVelosityMultiply = 1.5f;
     [Space]
@@ -22,16 +22,21 @@ public class ForwardExplosionAbility : MonoBehaviour, IAbility, IPersonComponent
     public void Init(IPerson person)
     {
         Person = person;
-        _jumpInfo = person.GetPersonComponentIs<IJumpInfoConteiner>();
 
-        _attacker.AttackEvent += OnAttack;
+        Init();
+
+        _jumpInfo = person.GetPersonComponentIs<IJumpInfoConteiner>();
+        _attacker.FindPersonEvent += OnAttack;
     }
 
-    public void Use()
+    public override void Use()
     {
         if (_jumpInfo.IsJump)
         {
-            _attacker.Attack(_jumpInfo.Direction);
+            base.Use();
+
+            _attacker.Direction = _jumpInfo.Direction;
+            _attacker.StartAttack();
 
             PushAway();
             PlayEffect();

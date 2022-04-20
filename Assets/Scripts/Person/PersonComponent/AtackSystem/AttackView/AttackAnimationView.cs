@@ -14,6 +14,8 @@ public class AttackAnimationView : MonoBehaviour, IAttackView
     public event Action StartAttackEvent;
     public event Action EndAttackEvent;
 
+    private bool _isEndingOfDamageToBe;
+
     [Space]
     public bool Log;
 
@@ -23,6 +25,7 @@ public class AttackAnimationView : MonoBehaviour, IAttackView
 
         _animator.SetTrigger("Attack");
         IsWork = true;
+        _isEndingOfDamageToBe = false;
 
         StartAttackEvent?.Invoke();
 
@@ -36,6 +39,8 @@ public class AttackAnimationView : MonoBehaviour, IAttackView
         _animator.SetTrigger("BreakAttack");
         IsWork = false;
 
+        if (_isEndingOfDamageToBe == false)
+            EndingOfDamageEvent.Invoke();
         EndAttackEvent?.Invoke();
 
         if (Log) Debug.Log("Break attack anim");
@@ -54,6 +59,7 @@ public class AttackAnimationView : MonoBehaviour, IAttackView
     {
         if (IsWork == false) return; // This need where breake animation work but event work too;
 
+        _isEndingOfDamageToBe = true;
         EndingOfDamageEvent?.Invoke();
 
         if (Log) Debug.Log("On attack Event");

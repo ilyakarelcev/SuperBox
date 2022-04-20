@@ -3,18 +3,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShortAttacker : MonoBehaviour
+public class ShortAttacker : MonoBehaviour, IAttacker
 {
-    [SerializeField] private float _radiusAttack = 1;
-    [SerializeField, Range(0, 360)] private float _angleAttack = 90;
+    public float _radiusAttack = 1;
+    [Range(0, 360)] public float _angleAttack = 90;
     [Space]
     [SerializeField] private Rigidbody _selfRb;
 
+    public Vector3 Direction { get; set; }
     public bool IsAttack { get; private set; }
 
-    public event Action<Attack> AttackEvent;
+    public event Action<Attack> FindPersonEvent;
 
-    public void Attack(Vector3 attackDirection)
+    public void StartAttack()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, _radiusAttack);
         LinkedList<Rigidbody> _rigidbodyOnCurentHit = new LinkedList<Rigidbody>();
@@ -32,7 +33,7 @@ public class ShortAttacker : MonoBehaviour
             {
                 Vector3 toPerson = person.Transform.position - transform.position;
 
-                if (Vector3.Angle(toPerson.ZeroY(), attackDirection.ZeroY()) < _angleAttack / 2)
+                if (Vector3.Angle(toPerson.ZeroY(), Direction.ZeroY()) < _angleAttack / 2)
                 {
                     CreateAttackObject(person, toPerson);
                 }
@@ -41,13 +42,15 @@ public class ShortAttacker : MonoBehaviour
         _rigidbodyOnCurentHit.Clear();
     }
 
+    public void EndAttack() { }
+
     private void CreateAttackObject(IPerson other, Vector3 toOther)
     {
         Vector3 direction = toOther.normalized;//GetDirectionToOtherPerson(other);
         Vector3 contactPoint = GetContactPointByDirection(direction);
 
         Attack attack = new Attack(null, other, direction, 1, contactPoint);
-        AttackEvent?.Invoke(attack);
+        FindPersonEvent?.Invoke(attack);
     }
 
     private Vector3 GetDirectionToOtherPerson(IPerson other)

@@ -1,8 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 public interface IAttacker
 {
-    event Action<IPerson, float> AttackEvent;
+    Vector3 Direction { get; set; }
 
-    void Attack();
+    event Action<Attack> FindPersonEvent;
+
+    void StartAttack();
+    void EndAttack();
 }

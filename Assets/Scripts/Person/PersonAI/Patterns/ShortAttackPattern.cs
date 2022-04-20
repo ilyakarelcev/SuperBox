@@ -7,7 +7,7 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
     public IMover Mover;
 
     private IDontBreakerAttackView _attackView;
-    private ShortAttacker _attacker;
+    private IAttacker _attacker;
     private IDontBreakerAttackHandler _DontBreakerAttackHandler;
 
     private IAttackHandler[] _handlers;
@@ -19,7 +19,7 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
         Person = person;
 
         _attackView = person.GetPersonComponentIs<IDontBreakerAttackView>();
-        _attacker = person.GetPersonComponent<ShortAttacker>();
+        _attacker = person.GetPersonComponentIs<IAttacker>();
 
         _DontBreakerAttackHandler = person.GetPersonComponentIs<IDontBreakerAttackHandler>();
 
@@ -34,20 +34,21 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
         Mover.StopMove();
         _attackView.StartAttack();
 
-        _attackView.BeginingOfDamageEvent += HandleAttacker;
+        _attackView.BeginingOfDamageEvent += OnBeginingOfDamage;
         _attackView.EndAttackEvent += EndAttack;
 
         _attackView.BeginingDontBreakStateEvent += _DontBreakerAttackHandler.StartBreaker;
         _attackView.EndingDontBreakStateEvent += _DontBreakerAttackHandler.EndBreaker;
 
-        _attacker.AttackEvent += HandleAttack;
+        _attacker.FindPersonEvent += HandleAttack;
     }
 
     public override void DeActivate()
     {
         base.DeActivate();
 
-        _attackView.BeginingOfDamageEvent -= HandleAttacker;
+        _attackView.BeginingOfDamageEvent -= OnBeginingOfDamage;
+        _attackView.EndingOfDamageEvent -= OnEndingOfDamage;
         _attackView.EndAttackEvent -= EndAttack;
 
         _attackView.BeginingDontBreakStateEvent -= _DontBreakerAttackHandler.StartBreaker;
@@ -55,7 +56,7 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
 
         _attackView.BreakAttack();
 
-        _attacker.AttackEvent -= HandleAttack;
+        _attacker.FindPersonEvent -= HandleAttack;
     }
 
     private void EndAttack()
@@ -63,9 +64,15 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
         InvokeEndWorkEvent();
     }
 
-    private void HandleAttacker()
+    private void OnBeginingOfDamage()
     {
-        _attacker.Attack(Person.Forward);
+        _attacker.Direction = Person.Forward;
+        _attacker.StartAttack();
+    }
+
+    private void OnEndingOfDamage()
+    {
+        _attacker.EndAttack();
     }
 
     private void HandleAttack(Attack attack)
