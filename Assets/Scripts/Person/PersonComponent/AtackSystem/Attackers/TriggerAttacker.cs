@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerAttacker : MonoBehaviour, IAttacker
+public class TriggerAttacker : MonoBehaviour
 {
     [SerializeField] private Collider[] _colliders;
 

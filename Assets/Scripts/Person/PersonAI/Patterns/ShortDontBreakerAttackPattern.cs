@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ShortDontBreakerAttackPatternWith : StateMachinePatternBase, IPersonComponent
+public class ShortDontBreakerAttackPattern : StateMachinePatternBase, IPersonComponent
 {
     public IMover Mover;
 
@@ -29,32 +29,33 @@ public class ShortDontBreakerAttackPatternWith : StateMachinePatternBase, IPerso
 
     public override void Activate()
     {
-        base.Activate();
-
-        Mover.StopMove();
-        _attackView.StartAttack();
+        base.Activate();        
 
         _attackView.BeginingOfDamageEvent += OnBeginingOfDamage;
+        _attackView.EndingOfDamageEvent += OnEndingOfDamage;
         _attackView.EndAttackEvent += EndAttack;
 
         _attackView.BeginingDontBreakStateEvent += _DontBreakerAttackHandler.StartBreaker;
         _attackView.EndingDontBreakStateEvent += _DontBreakerAttackHandler.EndBreaker;
 
         _attacker.FindPersonEvent += HandleAttack;
+
+        Mover.StopMove();
+        _attackView.StartAttack();
     }
 
     public override void DeActivate()
     {
         base.DeActivate();
 
+        _attackView.BreakAttack();
+
         _attackView.BeginingOfDamageEvent -= OnBeginingOfDamage;
         _attackView.EndingOfDamageEvent -= OnEndingOfDamage;
         _attackView.EndAttackEvent -= EndAttack;
 
         _attackView.BeginingDontBreakStateEvent -= _DontBreakerAttackHandler.StartBreaker;
-        _attackView.EndingDontBreakStateEvent -= _DontBreakerAttackHandler.EndBreaker;
-
-        _attackView.BreakAttack();
+        _attackView.EndingDontBreakStateEvent -= _DontBreakerAttackHandler.EndBreaker;        
 
         _attacker.FindPersonEvent -= HandleAttack;
     }

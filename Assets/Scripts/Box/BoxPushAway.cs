@@ -87,7 +87,7 @@ public class BoxPushAway : IAttackHandler, IPersonComponent
         if (onPlane == Vector3.zero)
             onPlane = Random.onUnitSphere.ZeroY();
 
-        return Quaternion.AngleAxis(smothAngle, toEnemyRight) * onPlane; // возможно * - 1
+        return Quaternion.AngleAxis(smothAngle, toEnemyRight) * onPlane;
     }
 
     private float SmothAngle(float angle)

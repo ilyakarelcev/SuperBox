@@ -14,7 +14,9 @@ public class Attack
     }
 
     public float Damage;
+
     public Vector3 Impuls;
+    public bool AddClearImpuls;
     public Vector3 ImpulsPositionOffset;
 
     public float AttackCoificent;

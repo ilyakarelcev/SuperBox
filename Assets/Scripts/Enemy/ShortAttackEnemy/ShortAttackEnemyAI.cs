@@ -10,7 +10,7 @@ public class ShortAttackEnemyAI : IPersonComponent
     [SerializeField] private BehaviourSelector _behaviourSelector;
 
     [Header("AttackPattern")]
-    [SerializeField] private ShortDontBreakerAttackPatternWith _shortAttackPattern;
+    [SerializeField] private ShortDontBreakerAttackPattern _shortAttackPattern;
     [SerializeField] private StanPattern _stanPattern;
     [SerializeField] private GoToOpponentPattern _goToOpponent;
     [SerializeField] private WaitAfterAttackPattern _waitPattern;

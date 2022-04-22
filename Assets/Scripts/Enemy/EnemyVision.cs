@@ -52,6 +52,7 @@ public class EnemyVision : MonoBehaviour, IPersonComponent
 
         if (IPerson.GetPersonFromRigidbody(other.attachedRigidbody) is Player)
         {
+            //PlayerIsInside = false;// Uncomment me!
             if (PlayerIsVision)
             {
                 PlayerIsVision = false;

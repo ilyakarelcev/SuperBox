@@ -16,6 +16,7 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
     [SerializeField] private ShortAttacker _shortAttacker;
 
     public event Action<Attack> FindPersonEvent;
+    public Vector3 Direction { get; set; }
 
     public event Action BeginingOfDamageEvent;
     public event Action EndingOfDamageEvent;
@@ -24,12 +25,14 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
 
     public IPerson Person { get; private set; }
 
-    public bool IsWork { get; private set; }
+    public bool IsWork { get; private set; }    
 
     private float _attackPercent;
 
     private CastomCoroutine _attackCoroutine;
     private CastomCoroutine _updateAttackPercentCoroutine;
+
+    private LinkedList<IPerson> _attackedPerson = new LinkedList<IPerson>();
 
     [Space]
     [Range(0, 1)] public float TestTime;
@@ -39,9 +42,13 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
     public float DistanceToPerson;
     public Transform TestTransform;
     public float MultiplyView;
+    [Space]
+    public bool Log;
 
+    //Tools for setup values(curve, time and radiuse)
     private void Update()
     {
+        return;
         float distanceToPerson = (TestTransform.position - Person.Position).magnitude;
         MultiplyView = _multiplyByRadiusCurve.Evaluate((distanceToPerson - _minRadius) / (_maxRadius - _minRadius));
         MultiplyView = Mathf.Max(MultiplyView, 0);
@@ -63,14 +70,6 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
     public void Init(IPerson person)
     {
         Person = person;
-
-
-        ///
-        StartAttackEvent += StartAttack;
-        EndAttackEvent += EndAttack;
-
-
-        (this as IAttackView).StartAttack();
     }
 
     public void StartAttack()
@@ -85,6 +84,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
 
         _attackCoroutine.Destroy();
         _attackCoroutine = null;
+
+        _attackedPerson.Clear();
     }
 
     private void Attack()
@@ -93,47 +94,51 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
         float radius = Mathf.Lerp(_minRadius, _maxRadius, t);
         _shortAttacker._radiusAttack = radius;
 
-        _shortAttacker.Direction = Person.Forward;
+        _shortAttacker.Direction = Direction;
         _shortAttacker.StartAttack();
-
-
-        ///
-        RadiusView = radius;
-
-        float test = _multiplyByRadiusCurve.Evaluate(radius / _maxRadius);
-        test = 0; // check on this place
     }
 
     private void OnAttackPerson(Attack attack)
     {
+        if (_attackedPerson.Contains(attack.AttackedPerson))
+            return;
+        _attackedPerson.AddLast(attack.AttackedPerson);
+
+
         float distanceToPerson = (attack.AttackedPerson.Position - Person.Position).magnitude;
         float multiply = _multiplyByRadiusCurve.Evaluate((distanceToPerson - _minRadius) / (_maxRadius - _minRadius));
         multiply = Mathf.Max(multiply, 0);
 
+
         attack.AttackMultiply = multiply;
+        attack.AddClearImpuls = true;
         FindPersonEvent?.Invoke(attack);
     }
+
+
+    //AttackView//
+
 
     void IAttackView.StartAttack()
     {
         IsWork = true;
+        _attackPercent = 0;
 
-        _updateAttackPercentCoroutine = Person.Operator.OpenUpdateCoroutine(UpdateAttackPercent, LifeType.Cycle);//_attackPercent = 0;
+        _updateAttackPercentCoroutine = Person.Operator.OpenUpdateCoroutine(UpdateAttackPercent, LifeType.Cycle);
         StartAttackEvent?.Invoke();
         BeginingOfDamageEvent?.Invoke();
     }
 
     public void BreakAttack()
     {
-        OnEndAttack();
+        if(IsWork)
+            OnEndAttack();
     }
 
     private void UpdateAttackPercent()
     {
         _attackPercent += Time.deltaTime / _attackTime;
-
-
-        return;////////
+        
         if (_attackPercent >= 1)
             OnEndAttack();
     }

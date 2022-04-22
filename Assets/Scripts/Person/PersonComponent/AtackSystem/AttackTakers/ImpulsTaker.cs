@@ -6,6 +6,8 @@ public class ImpulsTaker : IAttackTaker
     {
         Rigidbody rb = attack.AttackedPerson.Rigidbody;
 
+        if (attack.AddClearImpuls)
+            rb.velocity = Vector3.zero;
         rb.AddForceAtPosition(attack.Impuls, attack.ContactPoint, ForceMode.Impulse);
     }
 }

@@ -6,9 +6,8 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
 {
     public IMover Mover;
 
-    private IDontBreakerAttackView _attackView;
+    private IAttackView _attackView;
     private IAttacker _attacker;
-    private IDontBreakerAttackHandler _DontBreakerAttackHandler;
 
     private IAttackHandler[] _handlers;
 
@@ -18,10 +17,8 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
     {
         Person = person;
 
-        _attackView = person.GetPersonComponentIs<IDontBreakerAttackView>();
+        _attackView = person.GetPersonComponentIs<IAttackView>();
         _attacker = person.GetPersonComponentIs<IAttacker>();
-
-        _DontBreakerAttackHandler = person.GetPersonComponentIs<IDontBreakerAttackHandler>();
 
         if (person.GetAllPersonComponentIs(out _handlers) == false)
             Debug.LogError($"Not attack handlers on {Person.Transform.name} person");
@@ -32,29 +29,25 @@ public class ShortAttackPattern : StateMachinePatternBase, IPersonComponent
         base.Activate();
 
         Mover.StopMove();
-        _attackView.StartAttack();
 
         _attackView.BeginingOfDamageEvent += OnBeginingOfDamage;
+        _attackView.EndingOfDamageEvent += OnEndingOfDamage;
         _attackView.EndAttackEvent += EndAttack;
 
-        _attackView.BeginingDontBreakStateEvent += _DontBreakerAttackHandler.StartBreaker;
-        _attackView.EndingDontBreakStateEvent += _DontBreakerAttackHandler.EndBreaker;
-
         _attacker.FindPersonEvent += HandleAttack;
+
+        _attackView.StartAttack();
     }
 
     public override void DeActivate()
     {
         base.DeActivate();
 
+        _attackView.BreakAttack();
+
         _attackView.BeginingOfDamageEvent -= OnBeginingOfDamage;
         _attackView.EndingOfDamageEvent -= OnEndingOfDamage;
         _attackView.EndAttackEvent -= EndAttack;
-
-        _attackView.BeginingDontBreakStateEvent -= _DontBreakerAttackHandler.StartBreaker;
-        _attackView.EndingDontBreakStateEvent -= _DontBreakerAttackHandler.EndBreaker;
-
-        _attackView.BreakAttack();
 
         _attacker.FindPersonEvent -= HandleAttack;
     }

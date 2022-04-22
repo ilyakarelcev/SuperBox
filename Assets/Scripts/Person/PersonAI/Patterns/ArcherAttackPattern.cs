@@ -29,23 +29,23 @@ public class ArcherAttackPattern : StateMachinePatternBase, IPersonComponent
 
     public override void Activate()
     {
-        base.Activate();
-
-        _attackView.StartAttack();
-        Mover.StartMove();
+        base.Activate();        
 
         _attackView.BeginingOfDamageEvent += OnAttack;
         _attackView.EndAttackEvent += EndAttack;
+
+        _attackView.StartAttack();
+        Mover.StartMove();
     }
 
     public override void DeActivate()
     {
         base.DeActivate();
 
+        _attackView.BreakAttack();
+
         _attackView.BeginingOfDamageEvent -= OnAttack;
         _attackView.EndAttackEvent -= EndAttack;
-
-        _attackView.BreakAttack();
 
         # region Not unsubscribe at Shooter
         // Не отписываюсь при от попадания пуль при деактивации. Если этот паттерн один пользуется Shooter то все норм, но если не один, тогда это создаст проблеммы, так как подписки будут копиться

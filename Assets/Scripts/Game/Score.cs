@@ -33,7 +33,7 @@ public class Score : MonoBehaviour
         else if (enemy is Archer)
             score += _scoreForArcher;
         else
-            Debug.LogError("Uncnowen enemy");
+            Debug.LogError("Uncnowen enemy: " + enemy.GetType().Name);
 
         UpdateText();
     }
