@@ -59,8 +59,6 @@ public class LineToPlayerOnInvisible : MonoBehaviour, IPersonComponent
             SetEnabledLine(true);
             PlayAnimation();
         }
-
-        Debug.LogError("Visible: " + _renderer.isVisible);
     }
 
     [ContextMenu("Deactive")]

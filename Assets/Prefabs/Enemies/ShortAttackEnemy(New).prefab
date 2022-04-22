@@ -660,6 +660,7 @@ MonoBehaviour:
     _stanPattern:
       _timeInStan: 2
       Mover: {fileID: 0}
+      NavmeshMover: {fileID: 492099640}
     _goToOpponent:
       Mover: {fileID: 0}
       _targetDistanceToPlayer: 2
@@ -1409,6 +1410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 1833015070}
+  _agentSpeed: 3.5
 --- !u!1 &3916774959389874359
 GameObject:
   m_ObjectHideFlags: 0

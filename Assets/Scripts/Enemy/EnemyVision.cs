@@ -52,16 +52,15 @@ public class EnemyVision : MonoBehaviour, IPersonComponent
 
         if (IPerson.GetPersonFromRigidbody(other.attachedRigidbody) is Player)
         {
-            //PlayerIsInside = false;// Uncomment me!
+            PlayerIsInside = false;
+            _rayCastInPlayer?.Destroy();
+
             if (PlayerIsVision)
             {
                 PlayerIsVision = false;
                 ChangeIsPlayerVisionEvent?.Invoke(false);
                 return;
             }
-
-            PlayerIsInside = false;
-            _rayCastInPlayer.Destroy();
         }
     }
 

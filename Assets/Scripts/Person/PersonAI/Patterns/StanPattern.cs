@@ -10,6 +10,7 @@ public class StanPattern : StateMachinePatternBase, IPersonComponent
     [Space]
     private AttackAnimationView _animationControler;
     public MoverBase Mover;
+    public NavmeshMover NavmeshMover;
 
     public IPerson Person { get; private set; }
 
@@ -28,14 +29,17 @@ public class StanPattern : StateMachinePatternBase, IPersonComponent
     {
         base.Activate();
 
-        //_animationControler.BreakAttack(); ////////
         Mover.StopMove();
+        NavmeshMover?.SetEnabledForNavmesh(false);
+
         _waitOperation = Person.Operator.OpenCoroutineWithTimeStep(InvokeEndWorkEvent, _timeInStan, LifeType.OneShot);
     }
 
     public override void DeActivate()
     {
         base.DeActivate();
+
+        NavmeshMover?.SetEnabledForNavmesh(true);
 
         _waitOperation?.Destroy();
         _waitOperation = null;
