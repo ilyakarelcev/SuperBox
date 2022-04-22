@@ -14,6 +14,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
     [SerializeField] private AnimationCurve _multiplyByRadiusCurve;
     [Space]
     [SerializeField] private ShortAttacker _shortAttacker;
+    [Space]
+    [SerializeField] private MagicAttackZoneView _attackZoneView;
 
     public event Action<Attack> FindPersonEvent;
     public Vector3 Direction { get; set; }
@@ -76,6 +78,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
     {
         _shortAttacker.FindPersonEvent += OnAttackPerson;
         _attackCoroutine = Person.Operator.OpenUpdateCoroutine(Attack, LifeType.Cycle);
+
+        _attackZoneView.Show();
     }
 
     public void EndAttack()
@@ -86,6 +90,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
         _attackCoroutine = null;
 
         _attackedPerson.Clear();
+
+        _attackZoneView.Hide();
     }
 
     private void Attack()
@@ -96,6 +102,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
 
         _shortAttacker.Direction = Direction;
         _shortAttacker.StartAttack();
+
+        _attackZoneView.SetScale(radius);
     }
 
     private void OnAttackPerson(Attack attack)
