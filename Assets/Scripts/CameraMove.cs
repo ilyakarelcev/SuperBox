@@ -24,4 +24,9 @@ public class CameraMove : MonoBehaviour
         _cameraCentr.position = Vector3.Lerp(_cameraCentr.position, _target.position, _speedMove * Time.deltaTime);
         _cameraCentr.rotation = Quaternion.Slerp(_cameraCentr.rotation, TargetDirection.GetRotation(), _speedRotate * Time.deltaTime);
     }
+
+    public void SetEnabled(bool enabled)
+    {
+        this.enabled = enabled;
+    }
 }

@@ -50,6 +50,8 @@ public class ArcherAI : IPersonComponent
 
 
         Person.Operator.OpenUpdateCoroutine(TestUpdate, LifeType.Cycle);//Test
+
+        person.HealthManager.DieEvent += OnDie;
     }
 
     public void TestUpdate()
@@ -61,6 +63,14 @@ public class ArcherAI : IPersonComponent
             ToAttack();
         if (Input.GetKeyDown(KeyCode.B))
             ToBehaviour();
+    }
+
+    private void OnDie()
+    {
+        if (AttackBehaviour.IsActive)
+            AttackBehaviour.DeActivate();
+        if (Behaviour.IsActive)
+            Behaviour.DeActivate();
     }
 
     public void ToAttack()

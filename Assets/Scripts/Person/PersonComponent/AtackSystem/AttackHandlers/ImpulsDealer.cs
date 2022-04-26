@@ -15,7 +15,11 @@ public class ImpulsDealer : MonoBehaviour, IAttackHandler
 
     public void Handle(Attack attack)
     {
-        attack.Impuls = CalculateImpuls(attack.AttackDirection, _force * attack.AttackMultiply, _upPercent, _sidePercent);
+        attack.Impuls = PhysicsSuporter.DividVectorByThreeAxis(attack.AttackDirection, 
+            _force * attack.AttackMultiply,
+            1 - _upPercent - _sidePercent,
+            _upPercent, _sidePercent);
+
         _debug.TakeImpuls(attack.Impuls);
     }
 

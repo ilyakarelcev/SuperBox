@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CollisionExtantion
+namespace Cephei
 {
-    public static Vector3 MidleContactPoint(this Collision collision)
+    public static class CollisionExtantion
     {
-        Vector3 midPoint = Vector3.zero;
-        foreach (var contact in collision.contacts)
+        public static Vector3 MidleContactPoint(this Collision collision)
         {
-            midPoint += contact.point;
-        }
+            Vector3 midPoint = Vector3.zero;
+            foreach (var contact in collision.contacts)
+            {
+                midPoint += contact.point;
+            }
 
-        return midPoint / collision.contacts.Length;
+            return midPoint / collision.contacts.Length;
+        }
     }
 }

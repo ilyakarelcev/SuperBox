@@ -24,6 +24,8 @@ public class AttackTakerManagerBase : IAttackTakerManager
     public virtual bool TakeAttack(Attack attack)
     {
         AttackInterpretator.TakeAttack(attack);
+
+        CurentAttack = attack;
         OnTakeAttack?.Invoke(attack);
 
         foreach (var condition in Conditions)

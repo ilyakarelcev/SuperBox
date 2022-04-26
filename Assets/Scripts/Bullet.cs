@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,6 +10,9 @@ public class Bullet : MonoBehaviour
     public event Action<Attack> OnPersonCollision;
 
     private Vector3 _direction;
+
+    private bool _isUsed;
+    private LinkedList<IPerson> _attackedPersons = new LinkedList<IPerson>();
     
     public void Init(Vector3 direction, float speed)
     {
@@ -22,9 +26,21 @@ public class Bullet : MonoBehaviour
 
         if (person != null)
         {
+            if (_attackedPersons.Contains(person))
+                return;
+            _attackedPersons.AddLast(person);
+
             Attack attack = new Attack(null, person, _direction, 1, collision.contacts[0].point);
             OnPersonCollision.Invoke(attack);
         }
+
+        HandleCollision();
+    }
+
+    private void HandleCollision()
+    {
+        if (_isUsed) return;
+        _isUsed = true;
 
         _audioSource.Play();
         _audioSource.transform.parent = null;

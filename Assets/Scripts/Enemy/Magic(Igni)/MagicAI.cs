@@ -45,14 +45,26 @@ public class MagicAI : IPersonComponent
         Behaviour.Activate();
 
         Person.Operator.OpenUpdateCoroutine(TestUpdate, LifeType.Cycle);
+
+        person.HealthManager.DieEvent += OnDie;
     }
 
     public void TestUpdate()
     {
+        return;
+
         if (Input.GetKeyDown(KeyCode.A))
             ToAttack();
         if (Input.GetKeyDown(KeyCode.B))
             ToBehaviour();
+    }
+
+    private void OnDie()
+    {
+        if(AttackBehaviour.IsActive)
+            AttackBehaviour.DeActivate();
+        if(Behaviour.IsActive)
+            Behaviour.DeActivate();
     }
 
     public void ToAttack()

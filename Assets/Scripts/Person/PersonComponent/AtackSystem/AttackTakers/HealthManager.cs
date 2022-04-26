@@ -19,6 +19,19 @@ public class HealthManager : MonoBehaviour, IAttackTaker
     [SerializeField] private HealthManagerDebug _debug;
     public bool Log;
 
+    [Header("Test")]
+    public float TestDamage;
+    public bool Test;
+
+    private void Update()
+    {
+        if (Test)
+        {
+            Test = false;
+            ApplyDamage(TestDamage);
+        }
+    }
+
     private void Start()
     {
         Health = _startHealth;
@@ -58,14 +71,14 @@ public class HealthManager : MonoBehaviour, IAttackTaker
     private void Die()
     {
         if (Log) Debug.Log(name + " die");
-        if (TryGetComponent(out Player player))
-        {
-            Health = StartHealth;
-            return;
-        }
+        //if (TryGetComponent(out Player player))
+        //{
+        //    Health = StartHealth;
+        //    return;
+        //}
 
         DieEvent?.Invoke();
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     [System.Serializable]
