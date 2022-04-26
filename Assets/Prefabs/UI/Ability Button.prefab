@@ -188,7 +188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5981570476500663719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -330,8 +330,8 @@ MonoBehaviour:
   _right: {fileID: 3307702493437679254}
   _leftAbility: {fileID: 0}
   _rightAbility: {fileID: 0}
-  _swipeMagnitude: 56.8
-  ScreenSizeView: {x: 568, y: 913}
+  _swipeMagnitude: 48.8
+  ScreenSizeView: {x: 488, y: 947}
 --- !u!1 &7143161452412970680
 GameObject:
   m_ObjectHideFlags: 0

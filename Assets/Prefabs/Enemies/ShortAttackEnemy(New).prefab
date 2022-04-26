@@ -758,7 +758,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.42
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &3684643941618091516
@@ -1415,7 +1415,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80861fe70a76d504dbeb0e313a701789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedMove: 5
   _agent: {fileID: 1833015070}
+  _transform: {fileID: 0}
   _agentSpeed: 3.5
 --- !u!1 &3916774959389874359
 GameObject:
@@ -1468,7 +1470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9017406655408143932
 Transform:
   m_ObjectHideFlags: 0
@@ -2131,7 +2133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6260e511a07656449b0cb07d08894d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circle: {fileID: 35174138947322140}
 --- !u!1001 &1157084809379644688
 PrefabInstance:
   m_ObjectHideFlags: 0

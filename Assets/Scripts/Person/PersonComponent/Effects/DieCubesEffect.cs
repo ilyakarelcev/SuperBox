@@ -31,31 +31,6 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
         Person = person;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T) || Test)
-        {
-            Test = false;
-
-            _cubes = new Transform[8];
-
-            for (int i = 0; i < 8; i++)
-            {
-                Transform point = _points[i];
-
-                Rigidbody cube = Instantiate(_prifab, point.position, point.rotation, transform);
-                cube.gameObject.SetActive(true);
-
-                cube.AddForce(_vectorDivider.DivideDirection(TestDirection, TestCoificent), ForceMode.VelocityChange);
-                cube.AddTorque(UnityEngine.Random.onUnitSphere * _torque.GetRandomValue(), ForceMode.VelocityChange);
-
-                _cubes[i] = cube.transform;
-            }
-
-            Person.Operator.OpenCoroutineWithTimeStep(AnimateCube, _cubesTimeAlive, LifeType.OneShot);
-        }
-    }
-
     public void OnDie()
     {
         Vector3 direction = Person.AttackTakerManager.CurentAttack.AttackDirection;
@@ -98,9 +73,18 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
 
             if (timer / _animationTime > 1)
             {
+                DestroyAllCube();
                 EndAnimationEvent?.Invoke();
                 coroutine.Destroy();
             }
         }        
+    }
+
+    private void DestroyAllCube()
+    {
+        foreach (var cube in _cubes)
+        {
+            Destroy(cube.gameObject);
+        }
     }
 }

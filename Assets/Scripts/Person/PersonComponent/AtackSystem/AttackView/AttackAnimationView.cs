@@ -40,7 +40,7 @@ public class AttackAnimationView : MonoBehaviour, IAttackView
         IsWork = false;
 
         if (_isEndingOfDamageToBe == false)
-            EndingOfDamageEvent.Invoke();
+            EndingOfDamageEvent?.Invoke();
         EndAttackEvent?.Invoke();
 
         if (Log) Debug.Log("Break attack anim");

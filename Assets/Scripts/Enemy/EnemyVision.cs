@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyVision : MonoBehaviour, IPersonComponent
 {
-    [SerializeField] private MeshRenderer _circle;
-
     public bool PlayerIsVision { get; private set; }
     public bool PlayerIsInside { get; private set; }
 

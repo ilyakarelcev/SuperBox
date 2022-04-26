@@ -9,6 +9,9 @@ public class PlayerStaticInfo : ISengleTone
 
     public void Init()
     {
+        if (Player)
+            Debug.LogError("More one Instance of Singletone");
+
         Player = _player;
     }
 }

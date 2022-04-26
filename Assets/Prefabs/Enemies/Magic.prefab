@@ -99,7 +99,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &388012086
 Transform:
   m_ObjectHideFlags: 0
@@ -302,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6260e511a07656449b0cb07d08894d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circle: {fileID: 6473852207279940192}
 --- !u!1 &3307653357680035914
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2634336859423546688
 Transform:
   m_ObjectHideFlags: 0
@@ -1120,7 +1119,6 @@ GameObject:
   - component: {fileID: 7676725166670567239}
   - component: {fileID: 7676725166670567281}
   - component: {fileID: 6461338326072915042}
-  - component: {fileID: 5581442121520299724}
   m_Layer: 7
   m_Name: Magic
   m_TagString: Untagged
@@ -1398,26 +1396,9 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.42
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5581442121520299724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7676725166670567280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b174cf41e831a004ea00313f18d10fc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainObject: {fileID: 0}
-  _colliders: []
-  _objects: []
-  _cubesEffect: {fileID: 0}
-  _effect: {fileID: 0}
 --- !u!1 &7676725166760774643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,7 +1522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80861fe70a76d504dbeb0e313a701789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedMove: 5
   _agent: {fileID: 6461338326072915042}
+  _transform: {fileID: 0}
   _agentSpeed: 3.5
 --- !u!1 &7676725166898366176
 GameObject:

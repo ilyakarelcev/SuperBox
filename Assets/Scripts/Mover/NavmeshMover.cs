@@ -4,7 +4,10 @@ using UnityEngine.AI;
 
 public class NavmeshMover : MoverBase
 {
+    [SerializeField] private float _speedMove = 5;
+    [Space]
     [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private Transform _transform;
 
     [SerializeField, HideInInspector]  private float _agentSpeed;
 
@@ -19,6 +22,8 @@ public class NavmeshMover : MoverBase
             return;
 
         _agent.SetDestination(Target);
+        //_transform.position += _agent.desiredVelocity.normalized * _speedMove;
+
 
         Vector3 toTarget = Target.ZeroY() - _agent.transform.position.ZeroY();
         if (toTarget.magnitude < 0.1f) InvokeComeToTargetEvent();

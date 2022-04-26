@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,31 +8,37 @@ public class Score : MonoBehaviour
 {
     [SerializeField] private int _scoreForShortAttackEnemy = 10;
     [SerializeField] private int _scoreForArcher = 10;
+    [SerializeField] private int _scoreForTriceratops = 20;
+    [SerializeField] private int _scoreForMagic = 20;
     [Space]
     [SerializeField] private Text _scoreText;
     [Space]
     [SerializeField] private EnemiesOnScene _enemiesOnScene;
 
-    private int _score;
-    private int _allScore;
+    public int CurrentScore { get; private set; }
+    public int AllScore { get; private set; }
 
     private void Start()
     {
-        _enemiesOnScene.ByPassList(p => OnEnemyDie(p, ref _allScore));
+        _enemiesOnScene.ByPassList(p => OnEnemyDie(p, (s) => AllScore += s));
 
-        _enemiesOnScene.ByPassList(p => 
-        p.GetComponent<HealthManager>().DieEvent += 
-        () => OnEnemyDie(p, ref _score));
+        _enemiesOnScene.ByPassList(p =>
+        p.GetComponent<HealthManager>().DieEvent +=
+        () => OnEnemyDie(p, (s) => CurrentScore += s));
 
         UpdateText();
     }
 
-    private void OnEnemyDie(IPerson enemy, ref int score)
+    private void OnEnemyDie(IPerson enemy, Action<int> action)
     {
         if (enemy is ShortAttackEnemy)
-            score += _scoreForShortAttackEnemy;
+            action.Invoke(_scoreForShortAttackEnemy);
         else if (enemy is Archer)
-            score += _scoreForArcher;
+            action.Invoke(_scoreForArcher);
+        else if(enemy is Triceratops)
+            action.Invoke(_scoreForTriceratops);
+        else if (enemy is Magic)
+            action.Invoke(_scoreForMagic);
         else
             Debug.LogError("Uncnowen enemy: " + enemy.GetType().Name);
 
@@ -40,6 +47,6 @@ public class Score : MonoBehaviour
 
     private void UpdateText()
     {
-        _scoreText.text = _score.ToString() + "/" + _allScore.ToString();
+        _scoreText.text = CurrentScore.ToString() + "/" + AllScore.ToString();
     }
 }

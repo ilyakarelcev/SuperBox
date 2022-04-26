@@ -76,7 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6260e511a07656449b0cb07d08894d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circle: {fileID: 8826199728393669129}
 --- !u!1 &287784097617955219
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &514607455173997865
 Transform:
   m_ObjectHideFlags: 0
@@ -412,7 +411,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269914659388014361}
-  m_LocalRotation: {x: -0, y: -0.94985837, z: -0, w: -0.31268057}
+  m_LocalRotation: {x: -0, y: -0.9498576, z: 0, w: -0.31268302}
   m_LocalPosition: {x: 27.6, y: 0.75, z: 19.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -546,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379cca098de094f4ab2561bcd925b5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startHealth: 180
+  _startHealth: 30
   _debug:
     HealthView: 0
   Log: 0
@@ -571,7 +570,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.67
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &5269914660114845847
@@ -664,7 +663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80861fe70a76d504dbeb0e313a701789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedMove: 5
   _agent: {fileID: 8791030126636702731}
+  _transform: {fileID: 0}
   _agentSpeed: 3.5
 --- !u!1 &5269914660206391486
 GameObject:
