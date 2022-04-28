@@ -14,7 +14,6 @@ public class AttackTakerManagerBase : IAttackTakerManager
 
     public event Action<Attack> ConditionsForEachEndEvent;
     public event Action<Attack> AttackTakersForEachEndEvent;
-
     public event Action<Attack> OnTakeAttack;
 
     public Attack CurentAttack { get; private set; }
