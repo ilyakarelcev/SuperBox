@@ -23,6 +23,8 @@ public class AbilityButtonSetup : MonoBehaviour {
     [SerializeField] private Toggle _showToggle;
     [SerializeField] private Toggle _modeToggle;
 
+    [SerializeField] private GameObject _bottonsObject;
+
     private void OnValidate() {
 
         Setup();
@@ -67,7 +69,7 @@ public class AbilityButtonSetup : MonoBehaviour {
 
     public void Show(bool value) {
         _isOn = value;
-        gameObject.SetActive(value);
+        _bottonsObject.SetActive(value);
     }
 
 
