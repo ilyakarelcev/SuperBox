@@ -27,8 +27,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public event Action<Vector2> OnDownEvent;
     public event Action<Vector2> OnPressedEvent;
     public event Action<Vector2> OnUpEvent;
-    [Space]
-    [SerializeField] private float _currentSize;
 
     [Space]
     public bool WriteInLog;
@@ -80,9 +78,11 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
         Vector2 toMouse = touchPosition - (Vector2)_backgroundTransform.position;
 
-        float distance = toMouse.magnitude;
-        float pixelSize = _size * Screen.width;
+        float distance = GetMatchedFloat(toMouse.magnitude / GetMatchedScreenSize());
+        float pixelSize = GetMatchedFloat(_size);
+
         float radius = pixelSize * 0.5f;
+
         float toMouseClamped = Mathf.Clamp(distance, 0, radius);
 
         Vector2 stickPosition = toMouse.normalized * toMouseClamped;
@@ -101,7 +101,23 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         SetSelection(false);
         Value = Vector2.zero;
         _currentPosition = Vector2.zero;
-    }    
+    }
+
+    private float GetMatchedFloat(float f)
+    {
+        if (_matchVariant == MatchVariant.Horizontal)
+            return f * _canvasRectTransform.sizeDelta.x;
+        else
+            return f * _canvasRectTransform.sizeDelta.y;
+    }
+
+    private float GetMatchedScreenSize()
+    {
+        if (_matchVariant == MatchVariant.Horizontal)
+            return Screen.width;
+        else
+            return Screen.height;
+    }
 
     private void SetSelection(bool selectStatus)
     {
@@ -113,12 +129,9 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     private void UpdateSize()
     {
-        if (_matchVariant == MatchVariant.Horizontal)
-            _currentSize = _size * _canvasRectTransform.sizeDelta.x;
-        else
-            _currentSize = _size * _canvasRectTransform.sizeDelta.y;
+        float currentSize = GetMatchedFloat(_size);
 
-        Vector2 sizeVector = Vector2.one * _currentSize;
+        Vector2 sizeVector = Vector2.one * currentSize;
 
         _backgroundTransform.sizeDelta = sizeVector;
         _stickTransform.sizeDelta = sizeVector * _stickSize;

@@ -27,6 +27,7 @@ public class AbilityButtonSetup : MonoBehaviour {
 
     private void OnValidate() {
 
+        
         Setup();
         //CalculateSwipeMagnitude();
         //if(Application.isPlaying)
@@ -39,6 +40,10 @@ public class AbilityButtonSetup : MonoBehaviour {
     }
 
     void Setup() {
+
+        
+        if (_showToggle == null)
+            return;
 
         CalculateSwipeMagnitude();
 
@@ -71,6 +76,4 @@ public class AbilityButtonSetup : MonoBehaviour {
         _isOn = value;
         _bottonsObject.SetActive(value);
     }
-
-
 }

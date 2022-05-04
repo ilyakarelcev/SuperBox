@@ -27,7 +27,9 @@ public class EnemyVision : MonoBehaviour, IPersonComponent
     private void LateUpdate()
     {
         transform.position = Person.Position.ZeroY() + Vector3.up * 0.01f;
-        transform.rotation = Person.Forward.ZeroY().GetRotation();
+
+        if(Person.Forward.ZeroY() != Vector3.zero)
+            transform.rotation = Person.Forward.ZeroY().GetRotation();
     }
 
     private void OnTriggerEnter(Collider other)

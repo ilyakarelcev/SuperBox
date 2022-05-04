@@ -26,6 +26,12 @@ public class ChargeIndicationOnJoystic : MonoBehaviour
     // Чтоб изправить создал метод Setup и вызываю его в старте
     private void OnValidate()
     {
+        string name = gameObject.name;
+        int count = FindObjectsOfType<ChargeIndicationOnJoystic>().Length;
+
+        if (_backgroundImage == null)
+            count = count;
+
         Setup();
     }
 

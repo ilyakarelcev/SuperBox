@@ -7,6 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"last_search.7F95D817" = ""
+	"OpenInspectorPreview.7F95D817" = "0"
+	"currentGroup.7F95D817" = "scene"
 }
 providers = {
 	adb = {
@@ -56,13 +59,13 @@ providers = {
 	}
 }
 recentSearches = [
+	"Ability buttonSetup"
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
-expandedQueries = [
-]
+expandedQueries = [-1765347274 961552606]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
