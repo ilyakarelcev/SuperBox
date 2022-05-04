@@ -26,16 +26,13 @@ public class ChargeIndicationOnJoystic : MonoBehaviour
     // Чтоб изправить создал метод Setup и вызываю его в старте
     private void OnValidate()
     {
-        string name = gameObject.name;
-        int count = FindObjectsOfType<ChargeIndicationOnJoystic>().Length;
-
-        if (_backgroundImage == null)
-            count = count;
-
         Setup();
     }
 
     private void Setup() {
+        if (_backgroundImage == null)
+            return;
+
         _targetUpDirection = Quaternion.AngleAxis(_maxAngle / 2, Vector3.forward) * Vector3.up;
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, _targetUpDirection);
         _backgroundImage.transform.rotation = targetRotation;
