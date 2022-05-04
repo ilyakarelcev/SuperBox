@@ -104,6 +104,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
         _shortAttacker.StartAttack();
 
         _attackZoneView.SetScale(radius);
+
+        Debug.Log("Radius: " + radius);
     }
 
     private void OnAttackPerson(Attack attack)

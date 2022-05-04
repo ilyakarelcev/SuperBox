@@ -12,6 +12,7 @@ public class MagicAttackZoneView : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        transform.localScale = Vector3.zero;
     }
 
     public void SetScale(float scale)

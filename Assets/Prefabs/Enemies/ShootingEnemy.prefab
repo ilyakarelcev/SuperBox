@@ -739,7 +739,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &8793593663555127725
@@ -762,7 +762,6 @@ MonoBehaviour:
   - {fileID: 1363493430}
   _componentsToInit:
   - {fileID: 1432598175923097379}
-  - {fileID: 209474688441957242}
   AI:
     _visionRadiusInIdle: 13
     _visionRadiusInAttack: 18
@@ -1713,6 +1712,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8793593663555127724}
     m_Modifications:
+    - target: {fileID: 44934898166295949, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f29564c44405fd44b31904f69f3ac68, type: 2}
     - target: {fileID: 2032894221158031657, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1799,17 +1802,6 @@ PrefabInstance:
       objectReference: {fileID: 8793593663555127723}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
---- !u!114 &209474688441957242 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7880031879462369727, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
-  m_PrefabInstance: {fileID: 8048859559988495045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 191d7138dbe723c478ead5c3fefc8478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1432598175923097379 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8958459362118716902, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
