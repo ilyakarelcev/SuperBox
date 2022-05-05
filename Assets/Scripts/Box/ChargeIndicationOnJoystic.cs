@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,8 +23,7 @@ public class ChargeIndicationOnJoystic : MonoBehaviour
     // OnValidate вызывается только в редакторе. А тут есть некоторые методы, которые нужно вызвать в старте.
     // Поэтому в билде не корректно работало.
     // Чтоб изправить создал метод Setup и вызываю его в старте
-    private void OnValidate()
-    {
+    private void OnValidate() {
         Setup();
     }
 
