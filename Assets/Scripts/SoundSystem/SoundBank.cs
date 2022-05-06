@@ -34,4 +34,40 @@ public class SoundBank : ScriptableObject
     [Header("Triceratops")]
     public SoundSetup JerkBegin;
     public SoundSetup TriceratopsAttack;
+
+    [Header("Other")]
+    public SoundSetup Heal;
+    
+    public SoundSetup[] GetAllSounds()
+    {
+        return new SoundSetup[]
+        {
+            Jump,
+            BoxAttack,
+            PhysicsContact,
+            SlowMotion,
+            FireAbility,
+            WindAbility,
+            Hit,
+            DieSound,
+            Awake,
+            SwordAttack,
+            HitOnDontBreakState,
+            Shoot,
+            BulletDestroy,
+            FireCast,
+            JerkBegin,
+            TriceratopsAttack,
+            Heal
+        };
+    }
+
+    [ContextMenu("ResetAllValues")]
+    public void ResetAllValues()
+    {
+        foreach (var item in GetAllSounds())
+        {
+            item.ResetValues();
+        }
+    }
 }

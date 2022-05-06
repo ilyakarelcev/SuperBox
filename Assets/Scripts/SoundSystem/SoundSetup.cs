@@ -9,7 +9,9 @@ public class SoundSetup
     [Range(0, 3)]
     [SerializeField] private float _pitch = 1;
     [Space]
-    [SerializeField] private AudioClip _clip;    
+    [SerializeField] private AudioClip _clip;
+
+    public bool Play;
 
     public AudioClip Clip => _clip;
     public float Volume => _volume;
@@ -20,5 +22,11 @@ public class SoundSetup
         _volume = volume;
         _pitch = pitch;
         _clip = clip;
+    }
+
+    public void ResetValues()
+    {
+        _volume = 1;
+        _pitch = 1;
     }
 }

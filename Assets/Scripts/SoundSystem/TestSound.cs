@@ -9,9 +9,6 @@ public class TestSound : MonoBehaviour
     private void Start()
     {
         taker.Init(Sound.Bank.Hit);
-
-        
-        taker.Test();
     }
 
     private void Update()
@@ -19,7 +16,6 @@ public class TestSound : MonoBehaviour
         if (Test)
         {
             Test = false;
-            taker.Test();
         }
     }
 }

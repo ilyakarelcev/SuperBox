@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class SoundAttackViewSuport : IATtackViewSuport, IPersonComponent
+public class SoundAttackViewSuport : SoundSource, IATtackViewSuport, IPersonComponent
 {
-    [SerializeField] private AudioSource _source;
-
     public IPerson Person { get; private set; }
 
     public void Init(IPerson person)
@@ -19,7 +17,7 @@ public class SoundAttackViewSuport : IATtackViewSuport, IPersonComponent
     }
 
     public void OnAttack()
-    {        
-        _source.Play();
+    {
+        PlaySetup(_soundSetup);
     }
 }

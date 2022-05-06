@@ -14,65 +14,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Jump:
     _volume: 1
-    _pitch: 0
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   BoxAttack:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: e64fba4ea5d2f16478ebd15d08876ecf, type: 3}
+    Play: 0
   PhysicsContact:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   SlowMotion:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: f135a26a791ec1f4abe3fe55dab9ab1f, type: 3}
+    Play: 0
   FireAbility:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   WindAbility:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   Hit:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: e154c858641a23f4a9ac8f8a52aa5923, type: 3}
+    Play: 0
   DieSound:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   Awake:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: 7fde4c9141938aa43bb4719fda47aad8, type: 3}
+    Play: 0
   SwordAttack:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: d4d8a690323ba0b48bd217612f260da0, type: 3}
+    Play: 0
   HitOnDontBreakState:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: 0140d710f19da264b8342727ddc391c4, type: 3}
+    Play: 0
   Shoot:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: b01e8f8a679a67946837807fd0d1e90c, type: 3}
+    Play: 0
   BulletDestroy:
-    _volume: 0
-    _pitch: 0
-    _clip: {fileID: 0}
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: b1001e3eba3d40a4a9133ffcda20ae64, type: 3}
+    Play: 0
   FireCast:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   JerkBegin:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
   TriceratopsAttack:
-    _volume: 0
-    _pitch: 0
+    _volume: 1
+    _pitch: 1
     _clip: {fileID: 0}
+    Play: 0
+  Heal:
+    _volume: 1
+    _pitch: 1
+    _clip: {fileID: 8300000, guid: a010ae464fc66554ea16f4f8aafa344e, type: 3}
+    Play: 0

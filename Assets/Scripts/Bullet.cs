@@ -13,11 +13,16 @@ public class Bullet : MonoBehaviour
 
     private bool _isUsed;
     private LinkedList<IPerson> _attackedPersons = new LinkedList<IPerson>();
+
+    private SoundSetup _soundSetup;
     
     public void Init(Vector3 direction, float speed)
     {
         _rb.velocity = direction * speed;
         _direction = direction;
+
+        _soundSetup = Sound.Bank.BulletDestroy;
+        Sound.AddSource(_audioSource);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,7 +47,9 @@ public class Bullet : MonoBehaviour
         if (_isUsed) return;
         _isUsed = true;
 
+        Sound.SetupSource(_soundSetup, _audioSource);
         _audioSource.Play();
+
         _audioSource.transform.parent = null;
         Destroy(_audioSource.gameObject, _audioSource.clip.length);
 

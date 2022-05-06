@@ -35,6 +35,15 @@ public class Player : PersonBase
         AddComponents(_boxPushAway, JumpInfoConteiner, _shakeOnHandleAttack, _soundAttackHandler);
 
         InitializeAllComponent();
-        InitializeThisComponents(_collisionParticlsEfect, _healthScreen, _soundAttackTaker);
+        InitializeThisComponents(_collisionParticlsEfect, _healthScreen);
+
+        InitSound();
+    }
+
+    private void InitSound()
+    {
+        _soundAttackHandler.Init(Sound.Bank.BoxAttack);
+
+        _soundAttackTaker.Init(Sound.Bank.Hit);
     }
 }

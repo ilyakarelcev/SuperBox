@@ -33,6 +33,14 @@ public class Triceratops : PersonBase
         AddComponents(_mover, _attackView, AI);
 
         InitializeAllComponent();
-        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _soundAttackTaker);
+        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect);
+
+        InitSound();
+    }
+
+    private void InitSound()
+    {
+        _soundAttackTaker.Init(Sound.Bank.Hit);
+        _soundAttackViewSuport.Init(Sound.Bank.TriceratopsAttack);
     }
 }
