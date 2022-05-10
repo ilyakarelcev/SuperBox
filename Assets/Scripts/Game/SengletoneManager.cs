@@ -4,6 +4,7 @@ using UnityEngine;
 public class SengletoneManager : MonoBehaviour
 {
     [SerializeField] private PlayerStaticInfo _playerInfo;
+    [SerializeField] private Sound _sound;
     [Space]
     [SerializeField] private Component[] _singleTonesGO;
 
@@ -18,5 +19,6 @@ public class SengletoneManager : MonoBehaviour
         }
 
         _playerInfo.Init();
+        _sound.Init();
     }
 }

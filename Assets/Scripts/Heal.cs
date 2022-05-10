@@ -16,9 +16,12 @@ public class Heal : MonoBehaviour
     [Space]
     [SerializeField] private ParticleSystem _partical;
     [SerializeField] private AudioSource[] _audio;
+    [SerializeField] private AudioSource _audioSource;
 
     private float _addedHeal;
     private bool _isWorked;
+
+    private SoundSetup _soundSetup;
 
     public void Init(Vector3 velosity, float noTriggerTime, float addedHeal)
     {
@@ -29,6 +32,9 @@ public class Heal : MonoBehaviour
         StartCoroutine(Coroutines.WaitToAction(ActiveTrigger, noTriggerTime));
 
         _addedHeal = addedHeal;
+
+        _soundSetup = Sound.Bank.Heal;
+        Sound.AddSource(_audioSource);
     }
 
     private void ActiveTrigger()
@@ -60,12 +66,26 @@ public class Heal : MonoBehaviour
     {
         _partical.transform.rotation = Quaternion.identity;
         _partical.Play();
+
+        PlaySound();
+
+
+        DecracesAnimation();
+    }  
+
+    private void PlaySound()
+    {
+        Sound.SetupSource(_soundSetup, _audioSource);
+        _audioSource.Play();
+
+        return;
+
         foreach (var audio in _audio)
         {
             audio.Play();
         }
-        DecracesAnimation();
-    }  
+
+    }
     
     [ContextMenu("Recovery scale")]
     private void RcoveryScale()

@@ -20555,7 +20555,7 @@ ParticleSystem:
     arc:
       value: 70
       mode: 0
-      spread: 0.09
+      spread: 0
       speed:
         serializedVersion: 2
         minMaxState: 0

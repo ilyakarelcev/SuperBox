@@ -426,7 +426,7 @@ AudioSource:
   m_GameObject: {fileID: 3709757381154928996}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 55dd9f72f7731db4598d1d92bf3fefc4, type: 2}
   m_audioClip: {fileID: 8300000, guid: e154c858641a23f4a9ac8f8a52aa5923, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -702,7 +702,7 @@ AudioSource:
   m_GameObject: {fileID: 5598706083593666167}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 55dd9f72f7731db4598d1d92bf3fefc4, type: 2}
   m_audioClip: {fileID: 8300000, guid: d4d8a690323ba0b48bd217612f260da0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1177,7 +1177,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &7676725166670567238
@@ -1198,7 +1198,6 @@ MonoBehaviour:
   - {fileID: 3902524032374242046}
   - {fileID: 2358017381287711757}
   _componentsToInit:
-  - {fileID: 1914035359}
   - {fileID: 1227697562188097734}
   AI:
     _visionRadiusInIdle: 13
@@ -2110,7 +2109,7 @@ Transform:
   m_GameObject: {fileID: 9029511805417801198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99, y: 0.99, z: 0.99}
+  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5267126294990521128}
@@ -2132,7 +2131,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9029511805417801198}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2521,6 +2520,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7676725166670567240}
     m_Modifications:
+    - target: {fileID: 44934898166295949, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 796ac5b58889d6d4cb2deb3d60c0a9c4, type: 2}
     - target: {fileID: 2032894221158031657, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2603,17 +2606,6 @@ PrefabInstance:
       objectReference: {fileID: 7676725166670567243}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
---- !u!114 &1914035359 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7880031879462369727, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}
-  m_PrefabInstance: {fileID: 7880031881306989856}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 191d7138dbe723c478ead5c3fefc8478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1227697562188097734 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8958459362118716902, guid: 5323cf2ee5e4734488fa6e8c499c66de, type: 3}

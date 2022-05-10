@@ -32,6 +32,14 @@ public class Magic : PersonBase
         AddComponents(_mover, _magicViewAttacker, AI);
 
         InitializeAllComponent();
-        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _circleEffectForAttack, _attackEffect, _soundAttackTaker);
+        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _circleEffectForAttack, _attackEffect);
+
+        InitSound();
+    }
+
+    private void InitSound()
+    {
+        _soundAttackTaker.Init(Sound.Bank.Hit);
+        _soundAttackViewSuport.Init(Sound.Bank.FireCast);
     }
 }

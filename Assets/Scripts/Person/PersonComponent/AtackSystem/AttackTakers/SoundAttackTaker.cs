@@ -1,23 +1,18 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class SoundAttackTaker : IAttackTaker, IPersonComponent
+public class SoundAttackTaker : SoundSource, IAttackTaker
 {
-    [SerializeField] private AudioSource _source;
-    
-    public IPerson Person { get; private set; }
-
-    private float _startVolume;
-
-    public void Init(IPerson person)
-    {
-        Person = person;
-        _startVolume = _source.volume;
-    }
-
     public void TakeAttack(Attack attack)
     {
-        _source.volume = _startVolume * attack.AttackCoificent;
+        float volume = _soundSetup.Volume * attack.AttackCoificent;
+        SoundSetup setup = new SoundSetup(volume, _soundSetup.Pitch, _soundSetup.Clip);
+        Sound.SetupSource(setup, _source);
         _source.Play();
+
+        return;
+
+        //_source.volume = _startVolume * attack.AttackCoificent;
+        //_source.Play();
     }
 }

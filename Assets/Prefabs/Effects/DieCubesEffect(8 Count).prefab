@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 8113475769071969517}
   - component: {fileID: 8113475769071969516}
   m_Layer: 0
-  m_Name: DieCubesEffect
+  m_Name: DieCubesEffect(8 Count)
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cubesTimeAlive: 3
   _animationTime: 1
+  _forceMultiply: {x: 0.8, y: 1}
   _torque: {x: 50, y: 100}
   _vectorDivider:
     _magnitude: 8
@@ -304,7 +305,7 @@ GameObject:
   - component: {fileID: 8113475770146802723}
   - component: {fileID: 8113475770146802720}
   - component: {fileID: 8113475770146802721}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

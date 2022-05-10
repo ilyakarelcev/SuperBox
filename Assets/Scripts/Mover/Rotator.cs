@@ -13,7 +13,9 @@ public class Rotator : MoverBase
         _transform.rotation = transform.forward.ZeroY().GetRotation();
 
         Vector3 toTarget = Target.ZeroY() - _transform.position.ZeroY();
-        _transform.RotateTowards(toTarget.GetRotation(), _speedRotate * Time.deltaTime);
+        
+        if(toTarget != Vector3.zero)
+            _transform.RotateTowards(toTarget.GetRotation(), _speedRotate * Time.deltaTime);
 
         if (Vector3.Angle(toTarget.ZeroY(), _transform.forward.ZeroY()) < 0.5f)
         {

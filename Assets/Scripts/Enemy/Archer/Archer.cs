@@ -30,6 +30,14 @@ public class Archer : PersonBase
         AddComponents(_attackAnimationController, _mover, AI);
         InitializeAllComponent();
 
-        InitializeThisComponents(_circleEffect, _collisionParticlsEfect, _soundAttackViewSuport, _soundAttackTaker);
+        InitializeThisComponents(_circleEffect, _collisionParticlsEfect, _soundAttackViewSuport);
+
+        InitSound();
+    }
+
+    private void InitSound()
+    {
+        _soundAttackTaker.Init(Sound.Bank.Hit);
+        _soundAttackViewSuport.Init(Sound.Bank.Shoot);
     }
 }

@@ -19,6 +19,7 @@ public class DieHandler : MonoBehaviour, IPersonComponent
         Person = person;
 
         person.HealthManager.DieEvent += OnDie;
+        _cubesEffect.Init(Person);
     }
 
     public void OnDie()

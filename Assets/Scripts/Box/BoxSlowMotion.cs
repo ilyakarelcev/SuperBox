@@ -12,6 +12,8 @@ public class BoxSlowMotion : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
     [SerializeField] private AnimationCurve _soundCurve;
     [Space]
+    [SerializeField] private SlowMotionPitchChanger _pitchChanger;
+    [Space]
     [SerializeField] private AudioSource _sound;
     [SerializeField] private Joystick _joystick;
 
@@ -38,9 +40,23 @@ public class BoxSlowMotion : MonoBehaviour
         _joystick = joystick;
 
         _joystick.OnDownEvent += StartSlowMotion;
-        _joystick.OnUpEvent += EndSlowMotion;
+        _joystick.OnUpEvent += FinishSlowMotion;
 
         _startVolume = _sound.volume;
+
+        _pitchChanger.Init();
+    }
+
+    [ContextMenu("StartSlowMotion")]
+    public void StartSlowMotionInEditor()
+    {
+        StartSlowMotion(default);
+    }
+
+    [ContextMenu("EndSlowMotion")]
+    public void EndSlowMotionInEditor()
+    {
+        FinishSlowMotion(default);
     }
 
     public void StartSlowMotion(Vector2 vector2)
@@ -50,15 +66,19 @@ public class BoxSlowMotion : MonoBehaviour
         if (_audioCoroutine != null)
             StopCoroutine(_audioCoroutine);
         _audioCoroutine =  StartCoroutine(ChangeVolumeByCurve());
-    }
 
-    public void EndSlowMotion(Vector2 vector2)
+        StartCoroutine(_pitchChanger.BeginSlowMotion(_duration));
+    }
+    
+    public void FinishSlowMotion(Vector2 vector2)
     {
         TimeScaleManager.LerpTo(1, _timeToDefrosting);
 
         if (_audioCoroutine != null)
             StopCoroutine(_audioCoroutine);
         _audioCoroutine = StartCoroutine(NormalizeVolume());
+
+        StartCoroutine(_pitchChanger.EndSlowMotion(_timeToDefrosting));
     }
 
     private IEnumerator ChangeVolumeByCurve()
@@ -77,7 +97,7 @@ public class BoxSlowMotion : MonoBehaviour
             yield return null;
         }
 
-        _sound.volume = 0;
+        _sound.volume = 0;        
     }
 
     private IEnumerator NormalizeVolume()

@@ -114,7 +114,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!114 &764621954569156624
@@ -312,7 +312,7 @@ AudioSource:
   m_GameObject: {fileID: 8820603418138388604}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 55dd9f72f7731db4598d1d92bf3fefc4, type: 2}
   m_audioClip: {fileID: 8300000, guid: b1001e3eba3d40a4a9133ffcda20ae64, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

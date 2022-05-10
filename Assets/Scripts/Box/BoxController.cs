@@ -80,9 +80,10 @@ public class BoxController : MonoBehaviour, IPersonComponent
 
     private Vector3 GetDirectionFromInput(Vector2 input)
     {
-        //return _cameraMove.DirectionToLocal(inputDirection);
+        Vector3 toWorld = new Vector3(-1 * _joystick.Value.x, 0, -1 * _joystick.Value.y).normalized;
+        return _cameraMove.DirectionToLocal(toWorld.normalized);
 
-        return new Vector3(-1 * _joystick.Value.x, 0, -1 * _joystick.Value.y).normalized;
+        //return toWorld;
     }
 
     private float GetJumpMultiplyByInput(float inputMagnitude)

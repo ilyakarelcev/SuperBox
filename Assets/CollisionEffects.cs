@@ -29,7 +29,7 @@ public class CollisionEffects : MonoBehaviour
         float volume = collision.impulse.magnitude * 0.2f;
         if (volume > 0.05f) {
             _hitAudio.volume = volume;
-            Debug.Log(volume);
+            //Debug.Log(volume);
             float pitch = Mathf.Lerp(_pitch - 0.2f, _pitch + 0.2f, volume);
             _hitAudio.pitch = pitch;
             _hitAudio.Play();

@@ -9,6 +9,8 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
     [SerializeField] private float _cubesTimeAlive = 3;
     [SerializeField] private float _animationTime = 1;
     [Space]
+    [SerializeField] private Vector2 _forceMultiply = new Vector2(0.8f, 1);
+    [Space]
     [SerializeField] private Vector2 _torque;
     [SerializeField] private PhysicsSuporter.DividVectorByThreeAxi _vectorDivider;
     [Space]
@@ -31,6 +33,36 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
         Person = person;
     }
 
+    public void Update()
+    {
+        if (Test)
+        {
+            TestCast();
+            Test = false;
+        }
+    }
+
+    private void TestCast()
+    {
+        Vector3 direction = TestDirection;
+        float coificent = TestCoificent;
+
+        _cubes = new Transform[_points.Length];
+
+        for (int i = 0; i < _points.Length; i++)
+        {
+            Transform point = _points[i];
+
+            Rigidbody cube = Instantiate(_prifab, point.position, point.rotation);
+            cube.gameObject.SetActive(true);
+
+            cube.AddForce(_vectorDivider.DivideDirection(direction, coificent), ForceMode.VelocityChange);
+            cube.AddTorque(UnityEngine.Random.onUnitSphere * _torque.GetRandomValue(), ForceMode.VelocityChange);
+
+            _cubes[i] = cube.transform;
+        }
+    }
+
     public void OnDie()
     {
         Vector3 direction = Person.AttackTakerManager.CurentAttack.AttackDirection;
@@ -45,7 +77,10 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
             Rigidbody cube = Instantiate(_prifab, point.position, point.rotation);
             cube.gameObject.SetActive(true);
 
-            cube.AddForce(_vectorDivider.DivideDirection(direction, coificent), ForceMode.VelocityChange);
+            Vector3 velocity = _vectorDivider.DivideDirection(direction, coificent);
+            Vector3 velosityOnRandom = velocity * _forceMultiply.GetRandomValue();
+            cube.AddForce(velosityOnRandom, ForceMode.VelocityChange);
+
             cube.AddTorque(UnityEngine.Random.onUnitSphere * _torque.GetRandomValue(), ForceMode.VelocityChange);
 
             _cubes[i] = cube.transform;

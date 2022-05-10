@@ -391,7 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxAngle: 270
   _sizeMultiply: 0.928
-  _backGraundImage: {fileID: 589260495732535842}
+  _backgroundImage: {fileID: 589260495732535842}
   _chargeImage: {fileID: 589260496151161099}
   _reverseChargeImage: {fileID: 589260496338422024}
   _joystick: {fileID: 3913506607294144166}
@@ -1536,10 +1536,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joystick: {fileID: 3913506607294144166}
   _buttons:
-  - {fileID: 589260496334594580}
-  - {fileID: 8429600566844571286}
-  - {fileID: 7703887544208321687}
-  - {fileID: 1603062280450600981}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5715728829535383370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1761,15 +1761,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: _swipeMagnitude
-      value: 56.7
+      value: 28.6
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: ScreenSizeView.x
-      value: 567
+      value: 286
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: ScreenSizeView.y
-      value: 913
+      value: 615
       objectReference: {fileID: 0}
     - target: {fileID: 2166866844621239386, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: m_Pivot.x
@@ -1947,28 +1947,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
---- !u!114 &1603062280450600981 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2166866844621239389, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
-  m_PrefabInstance: {fileID: 589260496636314696}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8aec73c53b7bb04cbf1cf4f557ef96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7703887544208321687 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7117039446418680031, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
-  m_PrefabInstance: {fileID: 589260496636314696}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8aec73c53b7bb04cbf1cf4f557ef96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7703887545639010887 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7117039446908929551, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
@@ -1999,15 +1977,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: _swipeMagnitude
-      value: 136.95001
+      value: 92.25
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: ScreenSizeView.x
-      value: 567
+      value: 286
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: ScreenSizeView.y
-      value: 913
+      value: 615
       objectReference: {fileID: 0}
     - target: {fileID: 1798140673079589945, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
       propertyPath: _swipeMagnitudePrcentAtScrean
@@ -2107,30 +2085,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
---- !u!114 &589260496334594580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7117039446418680031, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
-  m_PrefabInstance: {fileID: 7703887544442407627}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8aec73c53b7bb04cbf1cf4f557ef96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &589260496960015556 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7117039446908929551, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
   m_PrefabInstance: {fileID: 7703887544442407627}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8429600566844571286 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2166866844621239389, guid: a34f72b16c8de824194782ac4bf16a03, type: 3}
-  m_PrefabInstance: {fileID: 7703887544442407627}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8aec73c53b7bb04cbf1cf4f557ef96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
