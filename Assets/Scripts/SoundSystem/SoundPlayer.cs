@@ -7,6 +7,7 @@ using UnityEngine;
 public class SoundPlayer : MonoBehaviour
 {
     public SoundBank Bank;
+    public AudioSource _sourcePrefab;
 
     private LinkedList<UsedSource> _sources;
 
@@ -21,9 +22,10 @@ public class SoundPlayer : MonoBehaviour
             {
                 setup.Play = false;
 
-                GameObject newObject = new GameObject();
-                newObject.transform.parent = transform;
-                AudioSource source = newObject.AddComponent<AudioSource>();
+                //GameObject newObject = new GameObject();
+                //newObject.transform.parent = transform;
+                AudioSource source = Instantiate(_sourcePrefab, transform);
+                source.transform.localPosition = default;
 
                 Sound.SetupSource(setup, source);
                 source.Play();
