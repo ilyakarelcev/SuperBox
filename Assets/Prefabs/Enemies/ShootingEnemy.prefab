@@ -1541,10 +1541,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4358900429233191865, guid: d19cfa5fdc5e9d7419c07561c349c7b5, type: 3}
+      propertyPath: MaxDistance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358900429233191865, guid: d19cfa5fdc5e9d7419c07561c349c7b5, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395899839516929764, guid: d19cfa5fdc5e9d7419c07561c349c7b5, type: 3}
+      propertyPath: MaxDistance
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5395899839516929764, guid: d19cfa5fdc5e9d7419c07561c349c7b5, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: b01e8f8a679a67946837807fd0d1e90c, type: 3}
+    - target: {fileID: 5395899839516929764, guid: d19cfa5fdc5e9d7419c07561c349c7b5, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7079961603347065061, guid: d19cfa5fdc5e9d7419c07561c349c7b5, type: 3}
       propertyPath: m_Name
       value: Sounds
