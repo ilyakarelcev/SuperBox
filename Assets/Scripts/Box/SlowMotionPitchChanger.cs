@@ -25,8 +25,6 @@ public class SlowMotionPitchChanger
         float timer = default;
         SetStarting(true);
 
-        //CustomDebug.Break();
-
         if (_mixer.GetFloat("Pitch", out _pitchBefore) == false)
             Debug.LogError("Mixer haven't 'Pitch' parrametr");
 
@@ -37,8 +35,6 @@ public class SlowMotionPitchChanger
 
             float pitch = _curve.Evaluate(timer / duration) * _pitchBefore;
             _mixer.SetFloat("Pitch", pitch);
-
-            Debug.Log("Change pitch: " + pitch + "timer: " + timer);
 
             timer += Time.unscaledDeltaTime;
 
@@ -62,8 +58,6 @@ public class SlowMotionPitchChanger
 
             float pitch = Mathf.Lerp(pitchBeforeNormalize, _startPitch, timer / timeToDefrosting);
             _mixer.SetFloat("Pitch", pitch);
-
-            Debug.Log("Normalize pitch: " + pitch);
 
             timer += Time.unscaledDeltaTime;
 
