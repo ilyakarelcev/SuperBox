@@ -3,12 +3,15 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Cephei;
+using System;
 
 public class BoxAttacker : MonoBehaviour, IPersonComponent
 {
     [SerializeField] private float _timeToForgetPerson = 0.2f;
 
     public IPerson Person { get; private set; }
+
+    public event Action<Attack> AttackEvent;
 
     private LinkedList<Rigidbody> _collisionsPersons = new LinkedList<Rigidbody>();
 
@@ -50,12 +53,12 @@ public class BoxAttacker : MonoBehaviour, IPersonComponent
 
         Attack attack = new Attack(Person, person, direction, multiply, contactPoint);
 
-        CustomDebug.DrawCross(contactPoint, 1, Color.red);
-
         foreach (var handler in _attackHandlers)
         {
             handler.Handle(attack);
         }
+
+        AttackEvent?.Invoke(attack);
 
         person.AttackTakerManager.TakeAttack(attack);
     }

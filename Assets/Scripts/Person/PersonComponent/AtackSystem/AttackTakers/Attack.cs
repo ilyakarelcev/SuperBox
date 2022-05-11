@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Attack
 {
@@ -12,6 +13,8 @@ public class Attack
         ContactPoint = contactPoint;
         AttackMultiply = attackMultiply;
     }
+
+    public Action EndAttackEvent;
 
     public float Damage;
 

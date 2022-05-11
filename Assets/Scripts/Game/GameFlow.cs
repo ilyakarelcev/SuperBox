@@ -16,12 +16,14 @@ public class GameFlow : MonoBehaviour
     public void Pause()
     {
         TimeScaleManager.SetTimeScale(0);
+        Sound.PauseAllSources();
     }
 
     [ContextMenu("UnPause")]
     public void Unpause()
     {
         TimeScaleManager.SetTimeScale(1);
+        Sound.UnpauseAllSources();
     }
 
     [ContextMenu("Restart")]

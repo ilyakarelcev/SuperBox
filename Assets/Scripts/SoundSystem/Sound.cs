@@ -28,4 +28,24 @@ public class Sound : ISengleTone
     {
         _sources.AddLast(source);
     }
+
+    //Test
+
+    public static void PauseAllSources()
+    {
+        foreach (var item in _sources)
+        {
+            if(item != null)
+                item.Pause();            
+        }
+    }
+
+    public static void UnpauseAllSources()
+    {
+        foreach (var item in _sources)
+        {
+            if (item != null)
+                item.UnPause();
+        }
+    }
 }

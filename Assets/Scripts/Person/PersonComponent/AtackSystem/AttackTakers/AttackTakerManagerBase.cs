@@ -40,6 +40,8 @@ public class AttackTakerManagerBase : IAttackTakerManager
         }
         AttackTakersForEachEndEvent?.Invoke(attack);
 
+        attack.EndAttackEvent?.Invoke();
+
         return true;
     }
 }
