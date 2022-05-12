@@ -1,4 +1,5 @@
 using Cephei;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class BoxSlowMotion : MonoBehaviour
     [SerializeField] private float _timeToDefrosting = 0.5f;
     [SerializeField] private float _lowTimeScale = 0.4f;
     [Space]
-    [SerializeField] private AnimationCurve _curve;
+    [SerializeField] private CurveParrametrs _timeCurve;
     [SerializeField] private AnimationCurve _soundCurve;
     [Space]
     [SerializeField] private SlowMotionPitchChanger _pitchChanger;
@@ -19,6 +20,8 @@ public class BoxSlowMotion : MonoBehaviour
 
     private Coroutine _audioCoroutine;
     private float _startVolume;
+
+    private SlowMotionManager.Operation _timeOperation;
 
     [Space]
     [SerializeField] private SlowMotionDebug _debug;
@@ -61,7 +64,8 @@ public class BoxSlowMotion : MonoBehaviour
 
     public void StartSlowMotion(Vector2 vector2)
     {
-        TimeScaleManager.LerpByCurve(_curve, _duration);
+        Func<float, float> func = (p) => _timeCurve.Curve.Evaluate(p) * _timeCurve.Magnitude;
+        _timeOperation = SlowMotionManager.Instance.AddOperation(_timeCurve.Time, func);
 
         if (_audioCoroutine != null)
             StopCoroutine(_audioCoroutine);
@@ -72,7 +76,10 @@ public class BoxSlowMotion : MonoBehaviour
     
     public void FinishSlowMotion(Vector2 vector2)
     {
-        TimeScaleManager.LerpTo(1, _timeToDefrosting);
+        SlowMotionManager.Instance.RemoveOperation(_timeOperation);
+
+        Func<float, float> func = (p) => Mathf.Lerp(Time.timeScale, 1, p);
+        SlowMotionManager.Instance.AddOperation(_timeToDefrosting, func);
 
         if (_audioCoroutine != null)
             StopCoroutine(_audioCoroutine);

@@ -117,11 +117,11 @@ public class CameraHeightAnimator : MonoBehaviour
         while (true)
         {
             float currentSpeed = speed * Time.unscaledDeltaTime;
-            currentDelta += sign * currentSpeed;
 
             if ((delta - currentDelta).Abs() < currentSpeed)
                 break;
 
+            currentDelta += sign * currentSpeed;
             Delta = currentDelta;
 
             yield return null;
