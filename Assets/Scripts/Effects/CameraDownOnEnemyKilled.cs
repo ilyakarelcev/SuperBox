@@ -7,6 +7,8 @@ public class CameraDownOnEnemyKilled : MonoBehaviour
     [SerializeField] private CurveParrametrs _toDown;
     [SerializeField] private CurveParrametrs _toUp;
     [Space]
+    [SerializeField] private CurveParrametrs _timeCurve;
+    [Space]
     [SerializeField] private float _distance;
     [SerializeField] private float _time;
     [SerializeField] private AnimationCurve _curve;
@@ -30,6 +32,8 @@ public class CameraDownOnEnemyKilled : MonoBehaviour
 
     private void PlayEffect()
     {
+        HandleTime();
+
         if (_isWork)
         {
             _cameraHeightAnimator.EndAnimationEvent -= SecondPart;
@@ -61,5 +65,10 @@ public class CameraDownOnEnemyKilled : MonoBehaviour
 
             _cameraHeightAnimator.UnFreeze();
         }
+    }
+
+    private void HandleTime()
+    {
+        SlowMotionManager.Instance.AddOperation(_timeCurve.Time, (p) => _timeCurve.Curve.Evaluate(p) * _timeCurve.Magnitude);
     }
 }

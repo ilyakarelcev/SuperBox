@@ -20,12 +20,12 @@ public class CollisionEfect : IAttackTaker, IPersonComponent
     {
         foreach (var effect in _effects)
         {
-            ParticleSystem newEffect = Object.Instantiate(effect, Person.Transform);
+            ParticleSystem newEffect = Object.Instantiate(effect, Person.Transform); 
             newEffect.transform.position = attack.ContactPoint;
             newEffect.transform.rotation = (attack.AttackDirection).GetRotation();
 
-            PlayParticle(newEffect, attack.AttackCoificent);
-
+            PlayParticle(newEffect, attack.AttackCoificent.Clamp(0.7f, 1));
+            
             _debug.AttackCoificent = attack.AttackCoificent;
         }
     }
@@ -35,7 +35,7 @@ public class CollisionEfect : IAttackTaker, IPersonComponent
         particleSystem.transform.localScale *= multiply;
         particleSystem.Play();
 
-        float timeAlive = particleSystem.main.duration * 3;
+        float timeAlive = particleSystem.main.duration * 10;//
         Object.Destroy(particleSystem, timeAlive);
     }
 
