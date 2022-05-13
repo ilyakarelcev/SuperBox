@@ -30,9 +30,7 @@ public class SlowMotionManager : MonoBehaviour, ISengleTone
 
     void Update()
     {
-        TimeScaleView = Time.timeScale;
-
-        Debug.Log("I'm alive");/////        
+        TimeScaleView = Time.timeScale;      
 
         float minScale = Mathf.Infinity;
         LinkedListNode<Operation> curentNode = _operations.First;

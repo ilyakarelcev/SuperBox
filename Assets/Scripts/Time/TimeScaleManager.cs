@@ -22,13 +22,6 @@ public class TimeScaleManager : MonoBehaviour, ISengleTone
 
     private static bool Instance;
 
-
-    public static bool InstanceTest { get; private set; }
-    private static bool InstanceTestPrivate { get; set; }
-
-    public static TimeScaleManager SingleTone { get; private set; }
-    private static TimeScaleManager SingleTonePrivate { get; set; }
-
     private static float _fixedTimeStep;
 
     private static TypeMove _typeMove;
@@ -44,14 +37,6 @@ public class TimeScaleManager : MonoBehaviour, ISengleTone
         _targetTimeScale = Time.timeScale;
 
         SetTimeScale(_startTimeScale);
-
-
-        ///
-        InstanceTest = true;
-        InstanceTestPrivate = true;
-
-        SingleTone = this;
-        SingleTonePrivate = this;
     }
 
     private void Update() // Then change on Runtime operation
