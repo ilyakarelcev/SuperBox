@@ -28533,6 +28533,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5149595186558992469, guid: 4a64674b207e0c64ab75ae565a4b533f, type: 3}
+      propertyPath: TestHealth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149595186558992469, guid: 4a64674b207e0c64ab75ae565a4b533f, type: 3}
       propertyPath: HealthManager
       value: 
       objectReference: {fileID: 2018979440}

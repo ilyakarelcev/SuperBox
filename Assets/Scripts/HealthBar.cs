@@ -16,6 +16,7 @@ public class HealthBar : MonoBehaviour
     private float startHealth;
 
     public float CurrentHealth => TestHealth;////
+    public float StartHealth => HealthManager.StartHealth;////
 
     private Action _animation;
 
@@ -118,9 +119,9 @@ public class HealthBar : MonoBehaviour
 
             _damageSlider.gameObject.SetActive(true);
 
-            _targetValue = _healthBar.CurrentHealth;
-            _valueBefor = _healthBar.CurrentHealth + delta;
-            _difference = delta;
+            _targetValue = _healthBar.CurrentHealth / _healthBar.StartHealth;
+            _valueBefor = (_healthBar.CurrentHealth + delta) / _healthBar.StartHealth;
+            _difference = delta / _healthBar.StartHealth;
 
             _damageSlider.value = _valueBefor;
             _mainSlider.value = _targetValue;
