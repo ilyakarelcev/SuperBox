@@ -20,6 +20,8 @@ public class SlowMotionSound : MonoBehaviour
 
         _manager.BeginWorkEvent += OnBeginWork;
         _manager.EndWorkEvent += OnEndWork;
+
+        enabled = false;
     }
 
     private void Update()
