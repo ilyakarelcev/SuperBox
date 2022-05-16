@@ -68,6 +68,12 @@ public class PointerManager : MonoBehaviour {
                 pointerIcon.Hide();
             }
 
+            //
+            Vector3 playerScreenPosition = _camera.WorldToScreenPoint(_playerTransform.position);
+            Vector3 toPointerFromPlayer = position - playerScreenPosition;
+            rotation = Quaternion.LookRotation(Vector3.forward, toPointerFromPlayer);
+            //
+
             pointerIcon.SetIconPosition(position, rotation);
         }
     }
