@@ -21,14 +21,22 @@ public class HealthManager : MonoBehaviour, IAttackTaker
 
     [Header("Test")]
     public float TestDamage;
-    public bool Test;
+    public bool TestingDamage;
+    [Space]
+    public float TestHeal;
+    public bool TestingHeal;
 
     private void Update()
     {
-        if (Test)
+        if (TestingDamage)
         {
-            Test = false;
+            TestingDamage = false;
             ApplyDamage(TestDamage);
+        }
+        if (TestingHeal)
+        {
+            TestingHeal = false;
+            AddHeal(TestHeal);
         }
     }
 

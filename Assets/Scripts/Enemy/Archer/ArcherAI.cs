@@ -26,6 +26,7 @@ public class ArcherAI : IPersonComponent
 
     private EnemyVision _enemyVision;
     private LineToPlayerOnInvisible _lineToPlayer;
+    private EnemyPointer _pointer;
 
     [Space]
     public bool KeyboardTesting;
@@ -38,6 +39,7 @@ public class ArcherAI : IPersonComponent
         _enemyVision.ChangeIsPlayerVisionEvent += HandleVision;
 
         _lineToPlayer = person.GetPersonComponent<LineToPlayerOnInvisible>();
+        _pointer = person.GetPersonComponent<EnemyPointer>();
 
         CreateAttackPattern();
         Behaviour = _behaviourSelector.GetBehaviour();
@@ -81,7 +83,9 @@ public class ArcherAI : IPersonComponent
         AttackBehaviour.Activate();
 
         _enemyVision.SetRadius(_visionRadiusInAttack * 2);
-        _lineToPlayer.Activate();
+        _pointer.Activate();
+
+        //_lineToPlayer.Activate();
     }
 
     public void ToBehaviour()
@@ -106,7 +110,9 @@ public class ArcherAI : IPersonComponent
         Behaviour.Activate();
 
         _enemyVision.SetRadius(_visionRadiusInIdle * 2);
-        _lineToPlayer.Deactive();
+        _pointer.Deactivate();
+
+        //_lineToPlayer.Deactive();
     }
 
     private void DelayToBehaviourTransition()

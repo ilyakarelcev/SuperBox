@@ -312,6 +312,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6260e511a07656449b0cb07d08894d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4809929277312438125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3796334339779994063}
+  - component: {fileID: 2007855969118137516}
+  m_Layer: 7
+  m_Name: EnemyPointer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3796334339779994063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809929277312438125}
+  m_LocalRotation: {x: -0, y: 0.21662058, z: -0, w: 0.9762559}
+  m_LocalPosition: {x: -7.0959005, y: 0, z: -2.1841927}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8793593663555127724}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2007855969118137516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809929277312438125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99af9107abbc20143a743e2c08804dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyHealth: {fileID: 8793593663555127719}
 --- !u!1 &5478510232641353693
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +756,7 @@ Transform:
   - {fileID: 6393771189630995057}
   - {fileID: 1363493428}
   - {fileID: 6527911806873692046}
+  - {fileID: 3796334339779994063}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -761,6 +807,7 @@ MonoBehaviour:
   - {fileID: 8793593663555127717}
   - {fileID: 443338115162519323}
   - {fileID: 1363493430}
+  - {fileID: 2007855969118137516}
   _componentsToInit:
   - {fileID: 1432598175923097379}
   AI:
@@ -849,7 +896,9 @@ MonoBehaviour:
     HealthView: 0
   Log: 0
   TestDamage: 0
-  Test: 0
+  TestingDamage: 0
+  TestHeal: 0
+  TestingHeal: 0
 --- !u!114 &8793593663555127717
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -701,6 +701,51 @@ Transform:
   m_Father: {fileID: 7597555423402875894}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2613391217323347675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7339388184069863467}
+  - component: {fileID: 4763001748154447840}
+  m_Layer: 7
+  m_Name: EnemyPointer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7339388184069863467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613391217323347675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5269914659388014369}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4763001748154447840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613391217323347675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99af9107abbc20143a743e2c08804dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyHealth: {fileID: 5269914659388014373}
 --- !u!1 &2893738648464907154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1517,7 @@ Transform:
   - {fileID: 8011295383609920176}
   - {fileID: 1235489904406771850}
   - {fileID: 8648247165747025038}
+  - {fileID: 7339388184069863467}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -216.442, z: 0}
@@ -1522,6 +1568,7 @@ MonoBehaviour:
   - {fileID: 5269914660579518060}
   - {fileID: 5269914660206391485}
   - {fileID: 8648247165747025037}
+  - {fileID: 4763001748154447840}
   _componentsToInit:
   - {fileID: 8163772793550460151}
   AI:
@@ -1595,7 +1642,9 @@ MonoBehaviour:
     HealthView: 0
   Log: 0
   TestDamage: 0
-  Test: 0
+  TestingDamage: 0
+  TestHeal: 0
+  TestingHeal: 0
 --- !u!195 &8791030126636702731
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2232,7 +2281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1235489904406771850
 Transform:
   m_ObjectHideFlags: 0

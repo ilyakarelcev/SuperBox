@@ -629,6 +629,51 @@ Transform:
   m_Father: {fileID: 7676725166670567240}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5204483928412086704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8868030774250551892}
+  - component: {fileID: 5743492856072585445}
+  m_Layer: 7
+  m_Name: EnemyPointer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8868030774250551892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204483928412086704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7676725166670567240}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5743492856072585445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204483928412086704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99af9107abbc20143a743e2c08804dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyHealth: {fileID: 7676725166670567244}
 --- !u!1 &5474955695037688434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,6 +1194,7 @@ Transform:
   - {fileID: 5514267551205073625}
   - {fileID: 3642880133481517283}
   - {fileID: 388012086}
+  - {fileID: 8868030774250551892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -141.442, z: 0}
@@ -1198,6 +1244,7 @@ MonoBehaviour:
   - {fileID: 7676725166960335060}
   - {fileID: 3902524032374242046}
   - {fileID: 2358017381287711757}
+  - {fileID: 5743492856072585445}
   _componentsToInit:
   - {fileID: 1227697562188097734}
   AI:
@@ -1272,7 +1319,9 @@ MonoBehaviour:
     HealthView: 0
   Log: 0
   TestDamage: 0
-  Test: 0
+  TestingDamage: 0
+  TestHeal: 0
+  TestingHeal: 0
 --- !u!114 &7676725166670567239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2101,7 +2150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3642880133481517283
 Transform:
   m_ObjectHideFlags: 0
