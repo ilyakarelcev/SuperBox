@@ -39,9 +39,11 @@ public class ShortAttackEnemy : PersonBase
         AddComponents(_mover, _attackView, _dontBreakerAttackHandler, AI);
 
         InitializeAllComponent();
-        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _collisionParticlsEfectDontBreakAttack, _circleEffectForAttack);
+        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _collisionParticlsEfectDontBreakAttack);
 
         InitSound();
+
+        //Init CircleEffect if you need use it
     }
 
     private void InitSound()

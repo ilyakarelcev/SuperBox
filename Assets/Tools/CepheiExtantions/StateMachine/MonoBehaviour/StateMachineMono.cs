@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Cephei.StateMachine.MonoBehaviour
         [SerializeField] protected StateMachinePatternBaseMono _startPattern;
 
         protected IStateMachinePattern[] _patterns;
+
+        public event Action<IStateMachinePattern> ActivatePatternEvent; //Don't use
 
         public IStateMachinePattern CurentPattern { get; private set; }
 

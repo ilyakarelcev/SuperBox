@@ -26,6 +26,7 @@ public class MagicAI : IPersonComponent
     private EnemyVision _enemyVision;
     private LineToPlayerOnInvisible _lineToPlayer;
     private EnemyPointer _pointer;
+    private MagicCircleEffect _magicCircleEffect;
 
     public void Init(IPerson person)
     {
@@ -36,6 +37,8 @@ public class MagicAI : IPersonComponent
 
         _lineToPlayer = person.GetPersonComponent<LineToPlayerOnInvisible>();
         _pointer = person.GetPersonComponent<EnemyPointer>();
+        _magicCircleEffect = person.GetPersonComponent<MagicCircleEffect>();
+
 
         CreateAttackPattern();
         Behaviour = _behaviourSelector.GetBehaviour();
@@ -46,9 +49,12 @@ public class MagicAI : IPersonComponent
 
         Behaviour.Activate();
 
-        Person.Operator.OpenUpdateCoroutine(TestUpdate, LifeType.Cycle);
 
+        Person.Operator.OpenUpdateCoroutine(TestUpdate, LifeType.Cycle);
         person.HealthManager.DieEvent += OnDie;
+
+
+        _magicCircleEffect.Init(AttackBehaviour);
     }
 
     public void TestUpdate()
@@ -72,6 +78,8 @@ public class MagicAI : IPersonComponent
     public void ToAttack()
     {
         if (AttackBehaviour.IsActive) return;
+
+        _magicCircleEffect.Activate();//This string must to be before pattern activate
 
         Behaviour.DeActivate();
         AttackBehaviour.Activate();
@@ -105,6 +113,7 @@ public class MagicAI : IPersonComponent
 
         _enemyVision.SetRadius(_visionRadiusInIdle * 2);
         _pointer.Deactivate();
+        _magicCircleEffect.Deactivate();
 
         //_lineToPlayer.Deactive();
     }

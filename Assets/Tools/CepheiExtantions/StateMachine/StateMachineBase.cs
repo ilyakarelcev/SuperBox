@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Cephei.StateMachine
     public abstract class StateMachineBase : IStateMachine
     {
         public IStateMachinePattern CurentPattern { get; private set; }
+
+        public event Action<IStateMachinePattern> ActivatePatternEvent;
 
         protected IStateMachinePattern[] _patterns;
 
@@ -19,6 +22,8 @@ namespace Cephei.StateMachine
         {
             CurentPattern = startPattern;
             startPattern.Activate();
+
+            ActivatePatternEvent?.Invoke(CurentPattern);
         }
 
         public void StopWork()
@@ -29,6 +34,8 @@ namespace Cephei.StateMachine
         public void Continue()
         {
             CurentPattern.Activate();
+
+            ActivatePatternEvent?.Invoke(CurentPattern);
         }
 
         public void ActivatePattern(IStateMachinePattern nextPattern)
@@ -36,6 +43,8 @@ namespace Cephei.StateMachine
             CurentPattern.DeActivate();
             CurentPattern = nextPattern;
             CurentPattern.Activate();
+
+            ActivatePatternEvent?.Invoke(CurentPattern);
         }
 
         public T GetPatternByType<T>() where T : IStateMachinePattern

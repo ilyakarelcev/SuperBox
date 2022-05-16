@@ -5,7 +5,7 @@ public class Magic : PersonBase
     [SerializeField] private MagicAI AI;
     [Header("Effects")]
     [SerializeField] private CollisionEfect _collisionParticlsEfect;
-    [SerializeField] private CircleEffect _circleEffectForAttack;
+    [SerializeField] private MagicCircleEffect _circleEffect;
     [SerializeField] private EffectOnBeginOfDamageAttack _attackEffect;
     [Header("Sound")]
     [SerializeField] private SoundAttackTaker _soundAttackTaker;
@@ -29,10 +29,10 @@ public class Magic : PersonBase
 
         Init(_healthManager, _rb, _mover, attackTaker, transform);
 
-        AddComponents(_mover, _magicViewAttacker, AI);
+        AddComponents(_mover, _magicViewAttacker, AI, _circleEffect);
 
         InitializeAllComponent();
-        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _circleEffectForAttack, _attackEffect);
+        InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _attackEffect);
 
         InitSound();
     }

@@ -1,8 +1,12 @@
-﻿namespace Cephei.StateMachine
+﻿using System;
+
+namespace Cephei.StateMachine
 {
     public interface IStateMachine
     {
         IStateMachinePattern CurentPattern { get; }
+
+        event Action<IStateMachinePattern> ActivatePatternEvent;
 
         void StartWork(IStateMachinePattern statPattern);
 

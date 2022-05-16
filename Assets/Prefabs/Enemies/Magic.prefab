@@ -1286,9 +1286,8 @@ MonoBehaviour:
     - {fileID: 3057492472844063433}
     _debug:
       AttackCoificent: 0
-  _circleEffectForAttack:
-    _startAttackEffect: {fileID: 8092604614915166563}
-    Log: 0
+  _circleEffect:
+    _effect: {fileID: 8092604614915166563}
   _attackEffect:
     _startAttackEffect: {fileID: 4311898432553223315}
     Log: 0
