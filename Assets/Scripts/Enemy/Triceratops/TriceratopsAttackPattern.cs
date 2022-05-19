@@ -97,6 +97,7 @@ public class TriceratopsAttackPattern : StateMachinePatternBase, IPersonComponen
 
         Person.HealthManager.ApplyDamageEvent -= OnApplyDamage;
         Person.Rigidbody.isKinematic = true;
+        Transition.Find(x => x is TransitionOnCircleAbility).DeActivate();
     }
 
     private void HandleAttack(Attack attack)

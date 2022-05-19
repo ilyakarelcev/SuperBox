@@ -12,7 +12,7 @@ public class Magic : PersonBase
     [SerializeField] private SoundAttackViewSuport _soundAttackViewSuport;
     [Header("Attack")]
     [SerializeField] private MagicViewAttacker _magicViewAttacker;
-    [SerializeField] private AttackCoificentCalculator _coificentCalculator;
+    [SerializeField] private AttackInterpretator _coificentCalculator;
     [Space]
     [Space]
     [SerializeField] private HealthManager _healthManager;

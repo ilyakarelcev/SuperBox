@@ -6,6 +6,7 @@ using UnityEngine;
 public class CircleImpulsAbility : AbilityBase, IPersonComponent
 {
     [SerializeField] private float _radius = 6;
+    [SerializeField] private float _contactOffset = 0.5f;
     [SerializeField] private AnimationCurve _impulsByDistance;
     [Space]
     [SerializeField] private ImpulsDealer _impulsDealer;
@@ -49,10 +50,11 @@ public class CircleImpulsAbility : AbilityBase, IPersonComponent
     private void AttackPerson(IPerson person)
     {
         Vector3 attackDirection = person.Position.From(Person.Position);
-        float multiply = attackDirection.sqrMagnitude / _radius.Sqr();
+        float multiply = attackDirection.magnitude / _radius;
         multiply = _impulsByDistance.Evaluate(multiply);
+        Vector3 contactPoint = person.Position - attackDirection.normalized * _contactOffset;
 
-        Attack attack = new Attack(Person, person, attackDirection.normalized, multiply, person.Position);
+        CircleImpulsAttack attack = new CircleImpulsAttack(Person, person, attackDirection.normalized, multiply, contactPoint);
 
         _impulsDealer.Handle(attack);       
 
@@ -70,5 +72,12 @@ public class CircleImpulsAbility : AbilityBase, IPersonComponent
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(Person.Position, _radius);
+    }
+}
+
+public class CircleImpulsAttack : Attack
+{
+    public CircleImpulsAttack(IPerson attackingPerson, IPerson attackedPerson, Vector3 attackDirection, float attackMultiply, Vector3 contactPoint) : base(attackingPerson, attackedPerson, attackDirection, attackMultiply, contactPoint)
+    {
     }
 }

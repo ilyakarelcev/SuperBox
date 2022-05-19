@@ -23,13 +23,13 @@ public class ToStanTransition : TransitionBase
     public override void Activate()
     {
         _healthManager.ApplyDamageEvent += OnApplyDamage;
-        _attackTakerManager.AttackTakersForEachEndEvent += OnEndAttackTake;
+        _attackTakerManager.OnTakeAttack += OnAttackTake;
     }
 
     public override void DeActivate()
     {
         _healthManager.ApplyDamageEvent -= OnApplyDamage;
-        _attackTakerManager.AttackTakersForEachEndEvent -= OnEndAttackTake;
+        _attackTakerManager.OnTakeAttack -= OnAttackTake;
     }
 
     private void OnApplyDamage(float damage)
@@ -38,8 +38,13 @@ public class ToStanTransition : TransitionBase
             ActivatePattern();
     }
 
-    private void OnEndAttackTake(Attack attack)
+    private void OnAttackTake(Attack attack)
     {
+        if (attack is CircleImpulsAttack)
+            ActivatePattern();
+
+        return;
+
         if (attack.Impuls.sqrMagnitude > ImpulsToStan.Sqr())
             ActivatePattern();
     }

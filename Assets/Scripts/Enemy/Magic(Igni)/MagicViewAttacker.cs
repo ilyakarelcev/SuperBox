@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, IAttacker
 {
+    [SerializeField] private float _twoWaveTime = 1;
     [SerializeField] private float _attackTime = 2;
     [Space]
     [SerializeField] private float _minRadius = 1;
@@ -33,6 +34,8 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
 
     private CastomCoroutine _attackCoroutine;
     private CastomCoroutine _updateAttackPercentCoroutine;
+
+    private bool _isSecondWave;
 
     private LinkedList<IPerson> _attackedPerson = new LinkedList<IPerson>();
 
@@ -80,6 +83,7 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
         _attackCoroutine = Person.Operator.OpenUpdateCoroutine(Attack, LifeType.Cycle);
 
         _attackZoneView.Show();
+        _isSecondWave = false;
     }
 
     public void EndAttack()
@@ -96,6 +100,12 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
 
     private void Attack()
     {
+        if (_isSecondWave == false && _attackPercent > _twoWaveTime / _attackTime)
+        {
+            _attackedPerson.Clear();
+            _isSecondWave = true;
+        }
+
         float t = _radiusByTimeCurve.Evaluate(_attackPercent);
         float radius = Mathf.Lerp(_minRadius, _maxRadius, t);
         _shortAttacker._radiusAttack = radius;
@@ -148,7 +158,7 @@ public class MagicViewAttacker : MonoBehaviour, IPersonComponent, IAttackView, I
     private void UpdateAttackPercent()
     {
         _attackPercent += Time.deltaTime / _attackTime;
-        
+
         if (_attackPercent >= 1)
             OnEndAttack();
     }

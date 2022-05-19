@@ -13,7 +13,7 @@ public class ShortAttackEnemy : PersonBase
     [SerializeField] private SoundAttackViewSuport _soundAttackViewSuport;
     [Header("Attack")]
     [SerializeField] private DontBreakerAttackAnimationView _attackView;
-    [SerializeField] private AttackCoificentCalculator _coificentCalculator;
+    [SerializeField] private AttackInterpretator _coificentCalculator;
     [SerializeField] private DontBreakerAttackHandler _dontBreakerAttackHandler;
     [Space]
     [Space]
@@ -36,7 +36,7 @@ public class ShortAttackEnemy : PersonBase
 
         Init(_healthManager, _rb, _mover, attackTaker, transform);
 
-        AddComponents(_mover, _attackView, _dontBreakerAttackHandler, AI);
+        AddComponents(_mover, _attackView, _dontBreakerAttackHandler, AI); 
 
         InitializeAllComponent();
         InitializeThisComponents(_soundAttackViewSuport, _collisionParticlsEfect, _collisionParticlsEfectDontBreakAttack);

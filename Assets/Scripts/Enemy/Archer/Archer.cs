@@ -11,7 +11,7 @@ public class Archer : PersonBase
     [SerializeField] private SoundAttackViewSuport _soundAttackViewSuport;
     [Header("Attack")]
     [SerializeField] private AttackAnimationView _attackAnimationController;
-    [SerializeField] private AttackCoificentCalculator _coificentCalculator;
+    [SerializeField] private AttackInterpretator _coificentCalculator;
     [Space]
     [SerializeField] private HealthManager _healthManager;
     [SerializeField] private Rigidbody _rb;

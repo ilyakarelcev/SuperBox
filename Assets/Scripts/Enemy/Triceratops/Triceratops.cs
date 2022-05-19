@@ -14,7 +14,7 @@ public class Triceratops : PersonBase
     [SerializeField] private SoundAttackViewSuport _soundAttackViewSuport;
     [Header("Attack")]
     [SerializeField] private TriceratopsAttackView _attackView;
-    [SerializeField] private AttackCoificentCalculator _coificentCalculator;
+    [SerializeField] private TriceratopsAttackInterpretator _attackInterpretator;
     [Space]
     [SerializeField] private HealthManager _healthManager;
     [SerializeField] private Rigidbody _rb;
@@ -22,7 +22,7 @@ public class Triceratops : PersonBase
 
     private void Start()
     {
-        AttackTakerManagerBase attackTaker = new AttackTakerManagerBase(_coificentCalculator);
+        AttackTakerManagerBase attackTaker = new AttackTakerManagerBase(_attackInterpretator);
         attackTaker.AttackTakers.Add(_healthManager);
         attackTaker.AttackTakers.Add(new ImpulsTaker());
         attackTaker.AttackTakers.Add(_collisionParticlsEfect);

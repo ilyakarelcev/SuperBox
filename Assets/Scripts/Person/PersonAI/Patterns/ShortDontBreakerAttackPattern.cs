@@ -49,6 +49,7 @@ public class ShortDontBreakerAttackPattern : StateMachinePatternBase, IPersonCom
         base.DeActivate();
 
         _attackView.BreakAttack();
+        _DontBreakerAttackHandler.EndBreaker();
 
         _attackView.BeginingOfDamageEvent -= OnBeginingOfDamage;
         _attackView.EndingOfDamageEvent -= OnEndingOfDamage;

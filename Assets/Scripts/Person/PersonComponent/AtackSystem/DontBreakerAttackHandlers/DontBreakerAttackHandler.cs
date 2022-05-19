@@ -16,6 +16,8 @@ public class DontBreakerAttackHandler : IDontBreakerAttackHandler, IPersonCompon
     private IAttackTaker[] _defaultEffect;
     private IAttackTaker[] _dontBreakStateEfect;
 
+    private bool _isWork;
+
     [Space]
     public bool Log;
 
@@ -34,6 +36,10 @@ public class DontBreakerAttackHandler : IDontBreakerAttackHandler, IPersonCompon
 
     public void StartBreaker()
     {
+        if (_isWork)
+            return;
+        _isWork = true;
+
         Person.Rigidbody.isKinematic = true;
 
         SwapEffect(_dontBreakStateEfect, _defaultEffect);
@@ -43,6 +49,10 @@ public class DontBreakerAttackHandler : IDontBreakerAttackHandler, IPersonCompon
 
     public void EndBreaker()
     {
+        if (_isWork == false)
+            return;
+        _isWork = false;
+
         Person.Rigidbody.isKinematic = false;
 
         SwapEffect(_defaultEffect, _dontBreakStateEfect);

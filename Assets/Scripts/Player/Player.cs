@@ -6,6 +6,7 @@ public class Player : PersonBase
 {
     [Header("Box")]
     [SerializeField] private BoxPushAway _boxPushAway;
+    private VelocitySaver _velocitySaver = new VelocitySaver();
     [SerializeField] private JumpInfoConteiner JumpInfoConteiner;
     [Header("Effects")]
     [SerializeField] private CollisionEfect _collisionParticlsEfect;
@@ -16,7 +17,7 @@ public class Player : PersonBase
     [SerializeField] private SoundAttackTaker _soundAttackTaker;
     [SerializeField] private SoundAttackHandler _soundAttackHandler;
     [Header("Attack")]
-    [SerializeField] private AttackCoificentCalculator _coificentCalculator;
+    [SerializeField] private AttackInterpretator _coificentCalculator;
     [Space]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private HealthManager _healthManager;
@@ -32,7 +33,7 @@ public class Player : PersonBase
 
         Init(_healthManager, _rigidbody, new NullMover(), attackTakerManager, transform);
 
-        AddComponents(_boxPushAway, JumpInfoConteiner, _shakeOnHandleAttack, _soundAttackHandler);
+        AddComponents(_boxPushAway, _velocitySaver, JumpInfoConteiner, _shakeOnHandleAttack, _soundAttackHandler);
 
         InitializeAllComponent();
         InitializeThisComponents(_collisionParticlsEfect, _healthScreen);

@@ -8,6 +8,7 @@ public interface IJumpInfoConteiner
 
     float VelosityPercent { get; }
     bool IsJump { get; }
+    float LastFrameVelosity { get; }
 
     Vector3 Direction { get; }
     float Multiply { get; }
@@ -36,7 +37,9 @@ public class JumpInfoConteiner : IJumpInfoConteiner, IJumpInfoTaker, IPersonComp
 
     public float VelosityPercent => _lastFrameVelosity / MaxVelosity;
 
-    public bool IsJump => _lastFrameVelosity > 1 * 1;
+    public bool IsJump => _lastFrameVelosity > 1;// 1 is jump drop
+
+    public float LastFrameVelosity => _lastFrameVelosity;
 
 
     public Vector3 Direction { get; private set; }

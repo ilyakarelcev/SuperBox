@@ -1333,6 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c7164cf7f5c5540a06620766ea03ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _twoWaveTime: 0.85
   _attackTime: 1.8
   _minRadius: 1.5
   _maxRadius: 5
@@ -1410,6 +1411,7 @@ MonoBehaviour:
   DistanceToPerson: 0
   TestTransform: {fileID: 0}
   MultiplyView: 0
+  TimerView: 0
   Log: 1
 --- !u!114 &7676725166670567281
 MonoBehaviour:
@@ -1690,6 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a2a6f98b48d1b4cb693a312e65c982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _randomizePercent: 10
   _force: 20
   _upPercent: 0.212
   _sidePercent: 0.139

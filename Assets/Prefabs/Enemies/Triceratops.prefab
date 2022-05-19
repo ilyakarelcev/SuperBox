@@ -1602,6 +1602,8 @@ MonoBehaviour:
       IsFinaly: 0
     _waitPattern:
       _waitTime: 1.5
+    _waitAfterCircleAttack:
+      _waitTime: 1
     _startAttackPattern:
       _source: {fileID: 8255390413913388614}
   _collisionParticlsEfect:
@@ -1620,8 +1622,9 @@ MonoBehaviour:
   _soundAttackViewSuport:
     _source: {fileID: 8255390413913388614}
   _attackView: {fileID: 8648247167090234300}
-  _coificentCalculator:
+  _attackInterpretator:
     _damageToMaxMultiply: 10
+    _impulsMultiplyOnCircleAttack: 2.5
   _healthManager: {fileID: 5269914659388014373}
   _rb: {fileID: 5269914659388014371}
   _mover: {fileID: 5269914660114845844}
@@ -1805,6 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a2a6f98b48d1b4cb693a312e65c982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _randomizePercent: 10
   _force: 20
   _upPercent: 0.226
   _sidePercent: 0
@@ -4205,7 +4209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452733753546606607, guid: 9af2960f35ac5f544a8c85f52517c668, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1600
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 4452733753546606607, guid: 9af2960f35ac5f544a8c85f52517c668, type: 3}
       propertyPath: m_SizeDelta.y

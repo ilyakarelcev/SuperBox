@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ImpulsDealer : MonoBehaviour, IAttackHandler
 {
+    [SerializeField, Range(0, 100)] private float _randomizePercent = 10;
     [SerializeField] private float _force = 5;
     [SerializeField, Range(0, 1)] private float _upPercent = 0.5f;
     [SerializeField, Range(0, 1)] private float _sidePercent = 0.2f;
@@ -15,10 +16,16 @@ public class ImpulsDealer : MonoBehaviour, IAttackHandler
 
     public void Handle(Attack attack)
     {
-        attack.Impuls = PhysicsSuporter.DividVectorByThreeAxis(attack.AttackDirection, 
-            _force * attack.AttackMultiply,
-            1 - _upPercent - _sidePercent,
-            _upPercent, _sidePercent);
+        float force = _force * attack.AttackMultiply;
+        float forwardPercent = (1 - _upPercent - _sidePercent).WithRandomPercent(_randomizePercent);
+        float upPercent = _upPercent.WithRandomPercent(_randomizePercent);
+        float sidePercent = _sidePercent.WithRandomPercent(_randomizePercent);
+
+        attack.Impuls = PhysicsSuporter.DividVectorByThreeAxis(attack.AttackDirection,
+            force,
+            forwardPercent,
+            upPercent, 
+            sidePercent);
 
         _debug.TakeImpuls(attack.Impuls);
     }

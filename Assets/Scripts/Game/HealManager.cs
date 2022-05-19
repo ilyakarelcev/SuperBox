@@ -17,8 +17,11 @@ public class HealManager : MonoBehaviour
     [Space]
     [SerializeField] private EnemiesOnScene _enemiesOnScene;
 
+    private SmartRandom _smartRandom;
+
     private void Start()
     {
+        _smartRandom = new SmartRandom(5, 5);
         _enemiesOnScene.ByPassList(p =>
         p.GetComponent<HealthManager>().DieEvent +=
         () => OnEnemyDie(p));
@@ -26,7 +29,7 @@ public class HealManager : MonoBehaviour
 
     private void OnEnemyDie(IPerson enemy)
     {
-        if (_chance >= Random.value)
+        if (_chance >= _smartRandom.GetValue())
             SpawnHeal(enemy.Position);
     }
 
@@ -39,3 +42,4 @@ public class HealManager : MonoBehaviour
         heal.Init(throwDirection * _velosity, _noTriggerTime, _addedHeal);
     }
 }
+

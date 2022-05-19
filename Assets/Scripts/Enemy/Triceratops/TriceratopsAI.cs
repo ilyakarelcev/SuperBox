@@ -13,6 +13,7 @@ public class TriceratopsAI : IPersonComponent
     [SerializeField] private TriceratopsAttackPattern _attackPattern;
     [SerializeField] private TriceratopsGoToOpponentPattern _goToOpponent; //// Change
     [SerializeField] private StopAndWaitPattern _waitPattern;
+    [SerializeField] private StopAndWaitPattern _waitAfterCircleAttack;
     [SerializeField] private PlayEffectPattern _startAttackPattern;
 
     public IPerson Person { get; private set; }
@@ -39,7 +40,7 @@ public class TriceratopsAI : IPersonComponent
         (Behaviour as IPersonComponent).Init(person);
 
         Person.InitializeThisComponents(
-            _attackPattern, _goToOpponent, _waitPattern, Behaviour as IPersonComponent);
+            _attackPattern, _goToOpponent, _waitPattern, _waitAfterCircleAttack, Behaviour as IPersonComponent);
 
         Behaviour.Activate();
 
@@ -133,6 +134,7 @@ public class TriceratopsAI : IPersonComponent
         AttackBehaviour = new StateMachineLevle();
         PersonMover mover = Person.Mover as PersonMover;
 
+
         _startAttackPattern.Transition.Add(new SimpleTransition(_goToOpponent, _startAttackPattern, AttackBehaviour));
 
         _attackPattern.Transition.Add(new SimpleTransition(_waitPattern, _attackPattern, AttackBehaviour));
@@ -142,9 +144,20 @@ public class TriceratopsAI : IPersonComponent
         _waitPattern.Transition.Add(new SimpleTransition(_goToOpponent, _waitPattern, AttackBehaviour));
         _waitPattern.Mover = mover;
 
+        _waitAfterCircleAttack.Transition.Add(new SimpleTransition(_goToOpponent, _waitAfterCircleAttack, AttackBehaviour));
+        _waitAfterCircleAttack.Mover = mover;
+
         _goToOpponent.Transition.Add(new SimpleTransition(_attackPattern, _goToOpponent, AttackBehaviour));
         _goToOpponent.PersonMover = mover;
         _goToOpponent.Rotator = mover.Rotator;
+
+
+        TransitionOnCircleAbility transitionOnCircleAbility = new TransitionOnCircleAbility();
+        transitionOnCircleAbility.Init(_waitAfterCircleAttack, AttackBehaviour, Person.AttackTakerManager);
+
+        _attackPattern.Transition.Add(transitionOnCircleAbility);
+        _waitPattern.Transition.Add(transitionOnCircleAbility);
+        _goToOpponent.Transition.Add(transitionOnCircleAbility);
 
 
         AttackBehaviour.Init(_startAttackPattern, _attackPattern, _waitPattern, _goToOpponent, _startAttackPattern);

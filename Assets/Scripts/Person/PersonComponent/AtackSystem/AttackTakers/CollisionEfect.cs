@@ -24,7 +24,7 @@ public class CollisionEfect : IAttackTaker, IPersonComponent
             newEffect.transform.position = attack.ContactPoint;
             newEffect.transform.rotation = (attack.AttackDirection).GetRotation();
 
-            PlayParticle(newEffect, attack.AttackCoificent.Clamp(0.7f, 1));
+            PlayParticle(newEffect, attack.AttackCoificent.Clamp(0, 1));
             
             _debug.AttackCoificent = attack.AttackCoificent;
         }
