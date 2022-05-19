@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public enum MatchVariant
 {
@@ -10,6 +11,7 @@ public enum MatchVariant
 
 public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    [SerializeField] private SelectedAnimation _selectedAnimation;
     [SerializeField] private RectTransform _backgroundTransform;
     [SerializeField] private RectTransform _stickTransform;
     [Space]
@@ -39,7 +41,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     void Start()
     {
         UpdateSize();
-        SetSelection(false);
+        _selectedAnimation.Unselect();
     }
 
     private void Update()
@@ -61,7 +63,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         OnDownEvent?.Invoke(eventData.position);
 
         _backgroundTransform.position = eventData.position;
-        SetSelection(true);
+        _selectedAnimation.Select();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -98,7 +100,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         IsPressed = false;
         OnUpEvent?.Invoke(eventData.position);
 
-        SetSelection(false);
+        _selectedAnimation.Unselect();
+
         Value = Vector2.zero;
         _currentPosition = Vector2.zero;
     }
@@ -117,14 +120,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             return Screen.width;
         else
             return Screen.height;
-    }
-
-    private void SetSelection(bool selectStatus)
-    {
-        if (selectStatus)
-            Show();
-        else
-            Hide();
     }
 
     private void UpdateSize()
@@ -149,5 +144,26 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     {
         _backgroundTransform.gameObject.SetActive(false);
         _stickTransform.gameObject.SetActive(false);
+    }
+
+    [System.Serializable]
+    private class SelectedAnimation
+    {
+        [SerializeField] private Image _backGroundImage;
+        [SerializeField] private RectTransform _backGroundTransform;
+        [SerializeField] private RectTransform _stickTransform;
+        [SerializeField] private RectTransform _defaultPosition;
+
+        public void Select()
+        {
+            _backGroundImage.enabled = true;
+        }
+
+        public void Unselect()
+        {
+            _backGroundImage.enabled = false;
+            _backGroundTransform.position = _defaultPosition.position;
+            _stickTransform.position = _defaultPosition.position;
+        }
     }
 }
