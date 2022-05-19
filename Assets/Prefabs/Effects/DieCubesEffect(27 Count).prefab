@@ -730,10 +730,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cubesTimeAlive: 3
   _animationTime: 1
+  _percentCreatedCubes: 0.697
   _forceMultiply: {x: 0.6, y: 1}
   _torque: {x: 50, y: 100}
   _vectorDivider:
-    _magnitude: 8
+    _magnitude: 11
     _upPercent: 0.263
     _sidePercent: 0.2
   _points:
