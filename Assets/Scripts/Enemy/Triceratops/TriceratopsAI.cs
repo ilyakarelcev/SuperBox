@@ -14,6 +14,7 @@ public class TriceratopsAI : IPersonComponent
     [SerializeField] private TriceratopsGoToOpponentPattern _goToOpponent; //// Change
     [SerializeField] private StopAndWaitPattern _waitPattern;
     [SerializeField] private StopAndWaitPattern _waitAfterCircleAttack;
+    [SerializeField] private TriceratopsAfterWallCollisionPattern _afterWallCollisionPattern;
     [SerializeField] private PlayEffectPattern _startAttackPattern;
 
     public IPerson Person { get; private set; }
@@ -39,8 +40,7 @@ public class TriceratopsAI : IPersonComponent
         Behaviour = _behaviourSelector.GetBehaviour();
         (Behaviour as IPersonComponent).Init(person);
 
-        Person.InitializeThisComponents(
-            _attackPattern, _goToOpponent, _waitPattern, _waitAfterCircleAttack, Behaviour as IPersonComponent);
+        Person.InitializeThisComponents(Behaviour as IPersonComponent);        
 
         Behaviour.Activate();
 
@@ -137,15 +137,27 @@ public class TriceratopsAI : IPersonComponent
 
         _startAttackPattern.Transition.Add(new SimpleTransition(_goToOpponent, _startAttackPattern, AttackBehaviour));
 
+
+        TransitionOnWallCollision transitionToAfterWallPattern = new TransitionOnWallCollision();
+        transitionToAfterWallPattern.Init(_afterWallCollisionPattern, AttackBehaviour, Person.GetPersonComponent<WallChecker>());
+        _attackPattern.Transition.Add(transitionToAfterWallPattern); 
+
         _attackPattern.Transition.Add(new SimpleTransition(_waitPattern, _attackPattern, AttackBehaviour));
         _attackPattern.PersonMover = mover;
         _attackPattern.Rotator = mover.Rotator;
 
+
         _waitPattern.Transition.Add(new SimpleTransition(_goToOpponent, _waitPattern, AttackBehaviour));
         _waitPattern.Mover = mover;
 
+
         _waitAfterCircleAttack.Transition.Add(new SimpleTransition(_goToOpponent, _waitAfterCircleAttack, AttackBehaviour));
         _waitAfterCircleAttack.Mover = mover;
+
+
+        _afterWallCollisionPattern.Transition.Add(new SimpleTransition(_goToOpponent, _afterWallCollisionPattern, AttackBehaviour));
+        _afterWallCollisionPattern.Mover = mover;
+
 
         _goToOpponent.Transition.Add(new SimpleTransition(_attackPattern, _goToOpponent, AttackBehaviour));
         _goToOpponent.PersonMover = mover;
@@ -159,6 +171,8 @@ public class TriceratopsAI : IPersonComponent
         _waitPattern.Transition.Add(transitionOnCircleAbility);
         _goToOpponent.Transition.Add(transitionOnCircleAbility);
 
+
+        Person.InitializeThisComponents(_attackPattern, _goToOpponent, _waitPattern, _waitAfterCircleAttack, _afterWallCollisionPattern);
 
         AttackBehaviour.Init(_startAttackPattern, _attackPattern, _waitPattern, _goToOpponent, _startAttackPattern);
     }

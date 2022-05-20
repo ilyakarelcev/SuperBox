@@ -4,6 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class TriceratopsAttackPattern : StateMachinePatternBase, IPersonComponent
 {
+    [Range(0, 1)] public float MultiplyOnStay = 0.6f;
+    [Range(0, 1)] public float MultiplyOnJerk = 1;
+
     public SimpleMover MoverForAttack;
     public IMover Rotator;
     public IMover PersonMover;
@@ -17,6 +20,8 @@ public class TriceratopsAttackPattern : StateMachinePatternBase, IPersonComponen
     private IAttackHandler[] _handlers;
 
     public IPerson Person { get; private set; }
+
+    private float _currentMultiply;
 
     public void Init(IPerson person)
     {
@@ -53,6 +58,8 @@ public class TriceratopsAttackPattern : StateMachinePatternBase, IPersonComponen
         Person.HealthManager.ApplyDamageEvent += OnApplyDamage;
 
         _attackView.StartAttack();
+
+        _currentMultiply = MultiplyOnStay;
     }
 
     public override void DeActivate()
@@ -98,6 +105,8 @@ public class TriceratopsAttackPattern : StateMachinePatternBase, IPersonComponen
         Person.HealthManager.ApplyDamageEvent -= OnApplyDamage;
         Person.Rigidbody.isKinematic = true;
         Transition.Find(x => x is TransitionOnCircleAbility).DeActivate();
+
+        _currentMultiply = MultiplyOnJerk;
     }
 
     private void HandleAttack(Attack attack)
@@ -105,6 +114,7 @@ public class TriceratopsAttackPattern : StateMachinePatternBase, IPersonComponen
         if (attack.AttackedPerson.GetType() != typeof(Player) && BalanceSetup.EnemyHitToEnemy == false) return;
 
         attack.AttackingPerson = Person;
+        attack.AttackMultiply *= _currentMultiply;
         foreach (var handler in _handlers)
         {
             handler.Handle(attack);
