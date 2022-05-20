@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class DieCubesEffect : MonoBehaviour, IPersonComponent
 {
+    [SerializeField] private CubesMoveToPlayerAnimation _moveToPlayerAnimation;
     [SerializeField] private float _cubesTimeAlive = 3;
     [SerializeField] private float _animationTime = 1;
     [Space]
@@ -17,12 +18,12 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
     [SerializeField] private PhysicsSuporter.DividVectorByThreeAxi _vectorDivider;
     [Space]
     [SerializeField] private Transform[] _points;
-    [SerializeField] private Rigidbody _prifab;    
+    [SerializeField] private DieCubesEffectUnit _prefab;    
 
     public IPerson Person { get; private set; }
     public Action EndAnimationEvent;
 
-    private LinkedList<Transform> _cubes = new LinkedList<Transform>();
+    private LinkedList<DieCubesEffectUnit> _cubes = new LinkedList<DieCubesEffectUnit>();
 
     [Header("Test")]
     public Vector3 TestDirection;
@@ -53,13 +54,10 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
         {
             Transform point = _points[i];
 
-            Rigidbody cube = Instantiate(_prifab, point.position, point.rotation);
-            cube.gameObject.SetActive(true);
-
-            cube.AddForce(_vectorDivider.DivideDirection(direction, coificent), ForceMode.VelocityChange);
-            cube.AddTorque(UnityEngine.Random.onUnitSphere * _torque.GetRandomValue(), ForceMode.VelocityChange);
-
-            _cubes.AddLast(cube.transform);
+            DieCubesEffectUnit newCube = Instantiate(_prefab, point.position, point.rotation);
+            newCube.Create(_vectorDivider.DivideDirection(direction, coificent), UnityEngine.Random.onUnitSphere * _torque.GetRandomValue());
+            
+            _cubes.AddLast(newCube);
         }
     }
 
@@ -75,49 +73,30 @@ public class DieCubesEffect : MonoBehaviour, IPersonComponent
             if (random.GetValue() > _percentCreatedCubes)
                 continue;
 
-            Transform point = _points[i];
-
-            Rigidbody cube = Instantiate(_prifab, point.position, point.rotation);
-            cube.gameObject.SetActive(true);
+            DieCubesEffectUnit newCube = Instantiate(_prefab, _points[i].position, _points[i].rotation);
 
             Vector3 velocity = _vectorDivider.DivideDirection(direction, coificent);
             Vector3 velosityOnRandom = velocity * _forceMultiply.GetRandomValue();
-            cube.AddForce(velosityOnRandom, ForceMode.VelocityChange);
+            Vector3 torque = UnityEngine.Random.onUnitSphere * _torque.GetRandomValue();
 
-            cube.AddTorque(UnityEngine.Random.onUnitSphere * _torque.GetRandomValue(), ForceMode.VelocityChange);
+            newCube.Create(velosityOnRandom, torque);
 
-            _cubes.AddLast(cube.transform);
+            _cubes.AddLast(newCube);
         }
 
-        Person.Operator.OpenCoroutineWithTimeStep(AnimateCube, _cubesTimeAlive, LifeType.OneShot);
+        _moveToPlayerAnimation.Init(_cubes);
+        Person.Operator.OpenUpdateCoroutine(UpdateMoveToPlayer, LifeType.Cycle);
 
         Debug.LogError("Cubes Count: " + _cubes.Count);
     }
 
-    private void AnimateCube()
+    private void UpdateMoveToPlayer()
     {
-        float timer = 0;
-        Vector3 startScale = _cubes.First.Value.localScale;
-
-        CastomCoroutine coroutine = null;
-        coroutine = Person.Operator.OpenUpdateCoroutine(While, LifeType.Cycle);
-
-        void While()
+        if (_moveToPlayerAnimation.Work() == false)
         {
-            timer += Time.deltaTime;
-
-            foreach (var cube in _cubes)
-            {
-                cube.localScale = startScale * Mathf.Min(1 - (timer / _animationTime), 1);
-            }
-
-            if (timer / _animationTime > 1)
-            {
-                DestroyAllCube();
-                EndAnimationEvent?.Invoke();
-                coroutine.Destroy();
-            }
-        }        
+            //DestroyAllCube();
+            EndAnimationEvent?.Invoke();
+        }
     }
 
     private void DestroyAllCube()
@@ -136,20 +115,19 @@ public class CubesMoveToPlayerAnimation
     [SerializeField] private Vector2 _speed = new Vector2(4, 6);
 
     public Transform _boxTransform;
-    private List<CubeUnit> _cubes;
+    private List<DieCubesEffectUnit> _cubes;
     private float _timer;
 
-    public void Init(LinkedList<Transform> cubes)
+    public void Init(LinkedList<DieCubesEffectUnit> cubes)
     {
-        if(_boxTransform == null)/////
-            _boxTransform = PlayerStaticInfo.Player.Transform;
-        _cubes = new List<CubeUnit>(cubes.Count);
+        _boxTransform = PlayerStaticInfo.Player.Transform;
+        _cubes = new List<DieCubesEffectUnit>(cubes.Count);
 
         foreach (var cube in cubes)
         {
-            CubeUnit cubeUnit = new CubeUnit(_timeToMove.GetRandomValue(), _speed.GetRandomValue(), cube);
+            cube.InitToMove(_timeToMove.GetRandomValue(), _speed.GetRandomValue());
 
-            _cubes.Add(cubeUnit);
+            _cubes.Add(cube);
         }
     }
 
@@ -162,9 +140,7 @@ public class CubesMoveToPlayerAnimation
             if (_cubes[i].TimeToMove > _timer)
                 continue;
 
-            _cubes[i].Transform.MoveTowards(_boxTransform.position, _cubes[i].Speed * Time.deltaTime);
-
-            if (_cubes[i].Transform.position == _boxTransform.position)
+            if (_cubes[i].MoveToTarger(_boxTransform.position))
                 _cubes.SmartDelete(i);
         }
 
@@ -175,6 +151,7 @@ public class CubesMoveToPlayerAnimation
     {
         public float TimeToMove;
         public float Speed;
+        public bool IsMove;
 
         public Transform Transform;
 
@@ -183,6 +160,18 @@ public class CubesMoveToPlayerAnimation
             TimeToMove = timeToMove;
             Speed = speed;
             Transform = transform;
+            IsMove = false;
+        }
+
+        public void StartMove()
+        {
+            if (IsMove == false)
+            {
+                Transform.GetComponent<Collider>().enabled = false;
+                Transform.GetComponent<Rigidbody>().isKinematic = true;
+            }
+
+            IsMove = true;            
         }
     }
 }

@@ -18,7 +18,7 @@ public class CubesToPlayerAnimationTest : MonoBehaviour
         }
 
         Animation._boxTransform = BoxTransform;
-        Animation.Init(linkedList);
+        //Animation.Init(linkedList);
     }
 
     private void Update()

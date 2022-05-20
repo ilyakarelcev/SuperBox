@@ -728,14 +728,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191d7138dbe723c478ead5c3fefc8478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveToPlayerAnimation:
+    _timeToMove: {x: 0.7, y: 1.1}
+    _speed: {x: 12, y: 17}
+    _boxTransform: {fileID: 0}
   _cubesTimeAlive: 3
   _animationTime: 1
   _percentCreatedCubes: 0.697
   _forceMultiply: {x: 0.6, y: 1}
   _torque: {x: 50, y: 100}
   _vectorDivider:
-    _magnitude: 11
-    _upPercent: 0.263
+    _magnitude: 22
+    _upPercent: 0.5
     _sidePercent: 0.2
   _points:
   - {fileID: 8113475769814174958}
@@ -765,7 +769,7 @@ MonoBehaviour:
   - {fileID: 1801199337737632209}
   - {fileID: 434771696903087151}
   - {fileID: 3816562119566442923}
-  _prifab: {fileID: 8113475770146802721}
+  _prefab: {fileID: 2500633906346504855}
   TestDirection: {x: 0, y: 0, z: 1}
   TestCoificent: 1
   Test: 0
@@ -871,6 +875,7 @@ GameObject:
   - component: {fileID: 8113475770146802723}
   - component: {fileID: 8113475770146802720}
   - component: {fileID: 8113475770146802721}
+  - component: {fileID: 2500633906346504855}
   m_Layer: 12
   m_Name: Prefab
   m_TagString: Untagged
@@ -972,6 +977,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2500633906346504855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113475770146802727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1222fa9c07e7696458d75554ed52a020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Collider: {fileID: 8113475770146802720}
+  Rb: {fileID: 8113475770146802721}
+  Transform: {fileID: 8113475770146802726}
+  TimeToMove: 0
+  Speed: 0
+  IsMove: 0
 --- !u!1 &8223866751013170095
 GameObject:
   m_ObjectHideFlags: 0

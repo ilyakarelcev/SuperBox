@@ -63,10 +63,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2032894221158031657}
     m_Modifications:
-    - target: {fileID: 8113475769071969516, guid: 248abd9d4be4b3349840c57f82ee9a43, type: 3}
-      propertyPath: _vectorDivider._magnitude
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 8113475769071969517, guid: 248abd9d4be4b3349840c57f82ee9a43, type: 3}
       propertyPath: m_RootOrder
       value: 0
